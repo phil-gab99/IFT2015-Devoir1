@@ -49,7 +49,7 @@ public interface Turtle {
     
     /**
      * The method stay 
-     * 
-     * 
      */
+     
+    void stay();
 }
