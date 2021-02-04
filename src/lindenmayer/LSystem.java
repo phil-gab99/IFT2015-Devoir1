@@ -1,6 +1,10 @@
 package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
+
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,14 +12,18 @@ import java.util.Map;
 import java.util.Random;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 // Implémentez les opérations principales du TA:
     //addSymbol                    DONE (Might need to prevent duplicates)
     //addRule                      DONE
     //setAction
     //rewrite
     //tell
-    //setAxiom
-    //getAxiom
+    //setAxiom                     DONE
+    //getAxiom                     DONE
     //classe Symbol                DONE (Could add more methods if needed)
     //implémentation de Symbol.Seq DONE (Could add more methods if needed)
     //classe LSystem.              WORKING ON IT
@@ -43,7 +51,6 @@ public class LSystem {
     
     private ArrayList<Symbol> alphabet;
     private Map<Symbol, List<Symbol.Seq>> rules;
-    // private HashMap<Character, ArrayList<Symbol.Seq>> rules = new HashMap<Character, ArrayList<Symbol.Seq>>(); // probably should be ArrayList<Seq>
     private HashMap<Character, Symbol.Seq> actions = new HashMap<Character, Symbol.Seq>();
     private Symbol.Seq axiom;
     
@@ -89,11 +96,12 @@ public class LSystem {
     
     public void setAxiom(String str) {
     
-        // axiom = 
+        axiom = Sequence.strToSeq(str);
     }
     
     public Symbol.Seq getAxiom() {
-        return this.axiom;
+        
+        return axiom;
     }
     
     public Symbol.Seq rewrite(Symbol sym) {
@@ -109,11 +117,27 @@ public class LSystem {
     }
     
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
+        
         return null;
     }
     
     public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n) {
+        
         return null;
+    }
+    
+    public static void readJSONFile(String file, LSystem S, Turtle T) throws IOException {
+        
+        JSONObject input = new JSONObject(new JSONTokener(new FileReader(file)));
+        JSONArray alphabet = input.getJSONArray("alphabet");
+        String axiom = input.getString("axiom");
+        S.setAxiom(axiom);
+        
+        for (int i = 0; i < alphabet.length(); i++) {
+            
+            String letter = alphabet.getString(i);
+            Symbol sym = S(letter.charAt(0));
+        }
     }
     
     /**
