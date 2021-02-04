@@ -54,7 +54,7 @@ public class LSystem {
         
         alphabet = new ArrayList<Symbol>();
         rules = new HashMap<Symbol, List<Symbol.Seq>>();
-        axiom = new Axioms();
+        axiom = new Sequence();
     }
     
     public Symbol addSymbol(char sym) {
@@ -67,15 +67,20 @@ public class LSystem {
     public void addRule(Symbol sym, String expansion) {
         //TODO: Rule
     
-        ArrayList<Symbol.Seq> temp;
-        if(this.rules.containsKey(key)){
-            temp = this.rules.get(key);
-        }else{
-            temp = new ArrayList<Symbol.Seq>();
+        if (rules.containsKey(sym)) {
+            
+            List<Symbol.Seq> expansions = rules.get(sym);
+            // expansions.add();
         }
-        //temp.add(expansion); // add the expansion therefore String -> Seq
-        this.rules.put(key, temp);
     
+        // ArrayList<Symbol.Seq> temp;
+        // if(this.rules.containsKey(key)){
+        //     temp = this.rules.get(key);
+        // }else{
+        //     temp = new ArrayList<Symbol.Seq>();
+        // }
+        // temp.add(expansion); // add the expansion therefore String -> Seq
+        // this.rules.put(key, temp);
     }
     
     public void setAction(Symbol sym, String expansion) {
@@ -113,12 +118,12 @@ public class LSystem {
     }
     
     /**
-     * The class Axioms
+     * The class Sequence
      * 
      * 
      */
     
-    private static class Axioms implements Symbol.Seq {
+    private static class Sequence implements Symbol.Seq {
         
         private List<Symbol> elements = new ArrayList<Symbol>();;
         
@@ -130,6 +135,19 @@ public class LSystem {
         public Iterator<Symbol> iterator() {
             
             return elements.iterator();
+        }
+        
+        private static Symbol.Seq strToSeq(String characters) {
+            
+            Symbol.Seq sequence = new Sequence();
+            char[] symbols = characters.toCharArray();
+            
+            for (char c : symbols) {
+                
+                sequence.add(new Symbol(c));
+            }
+            
+            return sequence;
         }
     }
 }

@@ -2,6 +2,7 @@ package lindenmayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The class Symbol defines a symbol an L-system's alphabet
@@ -28,6 +29,28 @@ public class Symbol {
         return Character.toString(value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        
+        if (o == this) { //Same reference
+            
+            return true;
+        }
+        
+        if (o == null || !(o instanceof Symbol)) {
+            
+            return false;
+        }
+        
+        return value == (Symbol)o.value;
+    }
+
+    @Override
+    public int hashCode() {
+        
+        return Objects.hash(value);
+    }
+
     public char getValue() {
         
         return this.value;
@@ -36,5 +59,6 @@ public class Symbol {
     public interface Seq extends Iterable<Symbol> {
         
         void add(Symbol sym);
+        // Symbol.Seq strToSeq(String a);
     }
 }
