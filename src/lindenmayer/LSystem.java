@@ -19,9 +19,10 @@ import org.json.JSONTokener;
 // Implémentez les opérations principales du TA:
     //addSymbol                    DONE (Might need to prevent duplicates)
     //addRule                      DONE
-    //setAction
+    //setAction                    DONE
     //rewrite
     //tell
+    //Rectangle2D tell
     //setAxiom                     DONE
     //getAxiom                     DONE
     //classe Symbol                DONE (Could add more methods if needed)
@@ -51,13 +52,14 @@ public class LSystem {
     
     private ArrayList<Symbol> alphabet;
     private Map<Symbol, List<Symbol.Seq>> rules;
-    private HashMap<Character, Symbol.Seq> actions = new HashMap<Character, Symbol.Seq>();
+    private HashMap<Symbol, String> actions;
     private Symbol.Seq axiom;
     
     public LSystem() {
         
         alphabet = new ArrayList<Symbol>();
         rules = new HashMap<Symbol, List<Symbol.Seq>>();
+        actions = new HashMap<Symbol, Symbol.Seq>();
         axiom = new Sequence();
     }
     
@@ -70,7 +72,7 @@ public class LSystem {
     
     public void addRule(Symbol sym, String expansion) {
 
-        //Retreving expansions list for a given symbol and appropriate sequence
+        //Retrieving expansions list for a given symbol and appropriate sequence
         List<Symbol.Seq> expansionList = rules.get(sym);
         Symbol.Seq sequence = Sequence.strToSeq(expansion);
     
@@ -89,9 +91,9 @@ public class LSystem {
         }
     }
     
-    public void setAction(Symbol sym, String expansion) {
-        //TODO: Action
-        //this.actions.put(sym.getValue(), expansion);
+    public void setAction(Symbol sym, String action) {
+
+        actions.put(sym, action);
     }
     
     public void setAxiom(String str) {
@@ -105,15 +107,21 @@ public class LSystem {
     }
     
     public Symbol.Seq rewrite(Symbol sym) {
+        
         Character key = sym.getValue();
-        if(!this.rules.containsKey(key) || this.rules.get(key).size() == 0){
+        
+        if(!this.rules.containsKey(key) || this.rules.get(key).size() == 0) {
+            
             return null;
         }
+        
         ArrayList<Symbol.Seq> temp = this.rules.get(key);
         return temp.get(new Random().nextInt(temp.size()));
     }
     
     public void tell(Turtle turtle, Symbol sym) {
+        
+        // turtle.getClass().getDeclaredMethod(str).invoke;
     }
     
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
