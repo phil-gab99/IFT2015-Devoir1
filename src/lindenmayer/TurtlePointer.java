@@ -34,12 +34,14 @@ public class TurtlePointer implements Turtle {
     
     public void draw() {
         
-        //Draws
+        //TODO: Draws
+        updateLocation();
     }
     
     public void move() {
         
-        // updateLocation();
+        //TODO: Moves
+        updateLocation();
     }
     
     public void turnR() {
@@ -65,12 +67,15 @@ public class TurtlePointer implements Turtle {
     
     public void pop() {
         
-        savedStates.pop();
+        State previous = savedStates.pop();
+        
+        coords = previous.position;
+        orient = previous.angle;
     }
     
     public void stay() {
         
-        //Stays
+        //TODO: Stays
     }
     
     public void init(Point2D pos, double angle_deg) {
@@ -114,15 +119,15 @@ public class TurtlePointer implements Turtle {
         return new Point(length * Math.cos(angle), length * Math.sin(angle));
     }
     
-    // /**
-    //  * The method updateLocation updates the turtle's location upon the calling
-    //  * of a method which affected its position
-    //  */
-    // 
-    // private void updateLocation() {
-    // 
-    //     coords.setLocation(coords.getX() + unitStep.getX(), coords.getY() + unitStep.getY());
-    // }
+    /**
+     * The method updateLocation updates the turtle's location upon the calling
+     * of a method which affected its position
+     */
+    
+    private void updateLocation() {
+    
+        coords.setLocation(coords.getX() + unitStep.getX(), coords.getY() + unitStep.getY());
+    }
     
     /**
      * The class State defines the fields associated with a turtle's state
@@ -145,30 +150,6 @@ public class TurtlePointer implements Turtle {
             
             this.position = position;
             this.angle = angle;
-        }
-        
-        /**
-         * The getter method getPosition retrieves the turtle's current state's
-         * position
-         *
-         * @return Point2D object indicating turtle's position
-         */
-        
-        Point2D getPosition() {
-            
-            return position;
-        }
-        
-        /**
-         * The getter method getAngle retrieves the turtle's current state's
-         * angle
-         *
-         * @return Double indicating turtle's orientation
-         */
-        
-        double getAngle() {
-            
-            return angle;
         }
     }
 }
