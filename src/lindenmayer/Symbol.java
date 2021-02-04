@@ -23,8 +23,11 @@ public class Symbol {
      */
     @Override
     public String toString() {
-        
         return Character.toString(value);
+    }
+
+    public char getValue(){
+        return this.value;
     }
     
     public interface Seq extends Iterable<Symbol> {}
