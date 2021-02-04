@@ -66,11 +66,21 @@ public class LSystem {
     
     public void addRule(Symbol sym, String expansion) {
         //TODO: Rule
+
+        List<Symbol.Seq> expansionList = rules.get(sym);
+        Symbol.Seq sequence = Sequence.strToSeq(expansion);
     
         if (rules.containsKey(sym)) {
+
+            if (!(expansionList.contains(sequence))) {
+                
+                expansionList.add(sequence);
+            }
+        } else {
             
-            List<Symbol.Seq> expansions = rules.get(sym);
-            expansions.add(Sequence.strToSeq(expansion));
+            expansionList = new ArrayList<Symbol.Seq>();
+            expansionList.add(sequence);
+            rules.put(sequence, expansionList);
         }
     
         // ArrayList<Symbol.Seq> temp;
