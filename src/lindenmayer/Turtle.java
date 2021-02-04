@@ -53,5 +53,40 @@ public interface Turtle {
      
     void stay();
     
-    void init();
+    /**
+     * The method init intializes the turtle state and clears the stack holding
+     * the saved states
+     *
+     * @param pos Point2D object describing the turtle's coordinates
+     * @param angle_deg Double representing the turtle's orientation in degrees
+     */
+     
+    void init(Point2D pos, double angle_deg);
+    
+    /**
+     * The getter method getPosition retrieves the turtle's coordinates on the
+     * plane
+     *
+     * @return The turtle's coordinates
+     */
+     
+    Point2D getPosition();
+    
+    /**
+     * The method getAngle retrieves the turtle's orientation on the plane
+     * 
+     * @return The turtle's orientation
+     */
+     
+    double getAngle();
+    
+    /**
+     * The method setUnits sets the unit step and unit angle to consider when
+     * applying the other movement related methods
+     *
+     * @param step Double indicating length of an advance
+     * @param delta Double indicating unit angle change in degrees
+     */
+     
+    void setUnits(double step, double delta);
 }
