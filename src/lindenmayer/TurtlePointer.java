@@ -42,14 +42,35 @@ public class TurtlePointer implements Turtle {
         // updateLocation();
     }
     
-    public Point2D getPosition() {
+    public void turnR() {
         
-        return coords;
+        if ((orient -= unitAngle) < 0) {
+            
+            orient += 360;
+        } else {
+            
+            orient = orient % 360;
+        }
     }
     
-    public double getAngle() {
+    public void turnL() {
         
-        return orient;
+        orient = (orient + unitAngle) % 360;
+    }
+    
+    public void push() {
+        
+        savedStates.push(new State(coords, orient));
+    }
+    
+    public void pop() {
+        
+        savedStates.pop();
+    }
+    
+    public void stay() {
+        
+        //Stays
     }
     
     public void init(Point2D pos, double angle_deg) {
@@ -61,6 +82,16 @@ public class TurtlePointer implements Turtle {
         unitAngle = 0;
         
         savedStates = new Stack<State>();
+    }
+    
+    public Point2D getPosition() {
+        
+        return coords;
+    }
+    
+    public double getAngle() {
+        
+        return orient;
     }
     
     public void setUnits(double step, double delta) {
@@ -91,17 +122,6 @@ public class TurtlePointer implements Turtle {
     // private void updateLocation() {
     // 
     //     coords.setLocation(coords.getX() + unitStep.getX(), coords.getY() + unitStep.getY());
-    // }
-    // 
-    // /**
-    //  * The method updateOrientation updates the turtle's orientation upon the
-    //  * calling of a method which affected its orientation
-    //  * 
-    //  */
-    // 
-    // private void updateOrientation() {
-    // 
-    //     angle += unitAngle;
     // }
     
     /**
