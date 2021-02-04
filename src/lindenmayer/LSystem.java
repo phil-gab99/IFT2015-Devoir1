@@ -80,7 +80,7 @@ public class LSystem {
             
             expansionList = new ArrayList<Symbol.Seq>();
             expansionList.add(sequence);
-            rules.put(sequence, expansionList);
+            rules.put(sym, expansionList);
         }
     
         // ArrayList<Symbol.Seq> temp;
