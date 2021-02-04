@@ -70,7 +70,7 @@ public class LSystem {
         if (rules.containsKey(sym)) {
             
             List<Symbol.Seq> expansions = rules.get(sym);
-            // expansions.add();
+            expansions.add(Sequence.strToSeq(expansion));
         }
     
         // ArrayList<Symbol.Seq> temp;
