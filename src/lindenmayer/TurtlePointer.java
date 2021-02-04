@@ -24,12 +24,12 @@ public class TurtlePointer implements Turtle {
     
     /**
      * The constructor method TurtlePointer initializes a Turtle with an empty
-     * Stack and default movement values
+     * Stack and default position and movement values
      */
     
     public TurtlePointer() {
         
-        savedStates = new Stack<State>();
+        init(new Point(0, 0), 0);
     }
     
     public void draw() {
@@ -39,7 +39,7 @@ public class TurtlePointer implements Turtle {
     
     public void move() {
         
-        updateLocation();
+        // updateLocation();
     }
     
     public Point2D getPosition() {
@@ -50,6 +50,17 @@ public class TurtlePointer implements Turtle {
     public double getAngle() {
         
         return orient;
+    }
+    
+    public void init(Point2D pos, double angle_deg) {
+        
+        coords = pos;
+        orient = angle_deg;
+        
+        unitStep = new Point(0, 0);
+        unitAngle = 0;
+        
+        savedStates = new Stack<State>();
     }
     
     public void setUnits(double step, double delta) {
