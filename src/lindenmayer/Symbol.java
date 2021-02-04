@@ -1,5 +1,8 @@
 package lindenmayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The class Symbol defines a symbol an L-system's alphabet
  * 
@@ -17,18 +20,21 @@ public class Symbol {
     }
     
     /**
-     * 
-     * 
      * @see java.lang.Object
      */
     @Override
     public String toString() {
+        
         return Character.toString(value);
     }
 
-    public char getValue(){
+    public char getValue() {
+        
         return this.value;
     }
     
-    public interface Seq extends Iterable<Symbol> {}
+    public interface Seq extends Iterable<Symbol> {
+        
+        void add(Symbol sym);
+    }
 }
