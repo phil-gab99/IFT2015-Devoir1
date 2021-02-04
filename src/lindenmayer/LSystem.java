@@ -11,9 +11,17 @@ import java.awt.geom.Rectangle2D;
 
 public class LSystem {
     
+    StringBuilder alphabet;
+    
+    public LSystem() {
+        
+        alphabet = new StringBuilder();
+    }
+    
     public Symbol addSymbol(char sym) {
         
-        //TODO: Add symbol
+        alphabet.append(sym);
+        return sym;
     }
     
     public void addRule(Symbol sym, String expansion) {
