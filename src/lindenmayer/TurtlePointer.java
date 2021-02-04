@@ -114,9 +114,9 @@ public class TurtlePointer implements Turtle {
      * @return Point object holding the components of the given length
      */
     
-    private Point2D makeCoordinates(double length, double angle) {
+    private Point makeCoordinates(double length, double angle) {
         
-        return new Point(length * Math.cos(angle), length * Math.sin(angle));
+        return new Point((int)(length * Math.cos(angle)), (int)(length * Math.sin(angle)));
     }
     
     /**
