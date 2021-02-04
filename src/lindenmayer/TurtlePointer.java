@@ -3,9 +3,26 @@ package lindenmayer;
 import java.awt.geom.Point2D;
 import java.util.Stack;
 
+/**
+ * The class TurtlePointer manages 
+ * 
+ * @author Philippe Gabriel
+ * @version 1.0 2021-mm-dd
+ */
+
 public class TurtlePointer implements Turtle {
     
-    Stack<State> savedStates;
+    public Stack<State> savedStates;
+    
+    public TurtlePointer() {
+        
+        savedStates = new Stack<State>();
+    }
+    
+    public void draw() {
+        
+        //Draws
+    }
     
     
     

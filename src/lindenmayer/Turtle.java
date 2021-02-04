@@ -3,8 +3,13 @@ package lindenmayer;
 import java.awt.geom.Point2D;
 
 /**
- * The interface Turtle
- * 
+ * The interface Turtle contains the basic graphical needs for turtle graphics.
+ * A turtle state is defined as a triplet containing its position coordinates
+ * and its orientation. Implementing classes are expected to intialize the
+ * turtle with position (0, 0) and angle 0 by default. The turtle applies its
+ * movement related methods by unit-length steps and unit angle which are set
+ * in {@link #setUnits(double, double)}
+ *
  * @author Philippe Gabriel
  * @version 1.0 2021-mm-dd
  */
