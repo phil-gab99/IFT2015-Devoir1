@@ -36,20 +36,22 @@ public interface Turtle {
     void turnL();
     
     /**
-     * The method push saves the turtle state
+     * The method push saves the current turtle state
      */
      
     void push();
     
     /**
-     * The method pop recovers the saved turtle state
+     * The method pop recovers the most recently saved turtle state
      */
      
     void pop();
     
     /**
-     * The method stay 
+     * The method stay does nothing, the turtle's state is unchanged
      */
      
     void stay();
+    
+    void init();
 }
