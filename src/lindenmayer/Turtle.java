@@ -78,8 +78,9 @@ public interface Turtle {
     Point2D getPosition();
     
     /**
-     * The method getAngle retrieves the turtle's orientation on the plane.
-     * 
+     * The getter method getAngle retrieves the turtle's orientation on the
+     * plane.
+     *
      * @return The turtle's orientation
      */
      

@@ -14,10 +14,18 @@ import java.util.Stack;
 
 public class TurtlePointer implements Turtle {
     
-    public Point2D distance;
-    public double angle;
+    private Point2D coords;   //Point2D indicating turtle's position
+    private double orient;    //Double indicating turtle's current orientation
     
-    public Stack<State> savedStates;
+    private Point2D unitStep; //Point2D holding the set unit step components
+    private double unitAngle; //Double indicating set unit angle
+    
+    private Stack<State> savedStates; //Stack keeping track of turtle states
+    
+    /**
+     * The constructor method TurtlePointer initializes a Turtle with an empty
+     * Stack and default movement values
+     */
     
     public TurtlePointer() {
         
@@ -29,19 +37,25 @@ public class TurtlePointer implements Turtle {
         //Draws
     }
     
+    public void move() {
+        
+        updateLocation();
+    }
     
-    /**
-     * The method setUnits sets the unit step and the unit angle to apply with
-     * the graphical methods.
-     *
-     * @param step Double indicating unit step
-     * @param delta Double indicating unit angle
-     */
+    public Point2D getPosition() {
+        
+        return coords;
+    }
+    
+    public double getAngle() {
+        
+        return orient;
+    }
     
     public void setUnits(double step, double delta) {
         
-        distance = makeCoordinates(step, delta);
-        angle = delta;
+        unitStep = makeCoordinates(step, delta);
+        unitAngle = delta;
     }
     
     /**
@@ -58,21 +72,68 @@ public class TurtlePointer implements Turtle {
         return new Point(length * Math.cos(angle), length * Math.sin(angle));
     }
     
+    // /**
+    //  * The method updateLocation updates the turtle's location upon the calling
+    //  * of a method which affected its position
+    //  */
+    // 
+    // private void updateLocation() {
+    // 
+    //     coords.setLocation(coords.getX() + unitStep.getX(), coords.getY() + unitStep.getY());
+    // }
+    // 
+    // /**
+    //  * The method updateOrientation updates the turtle's orientation upon the
+    //  * calling of a method which affected its orientation
+    //  * 
+    //  */
+    // 
+    // private void updateOrientation() {
+    // 
+    //     angle += unitAngle;
+    // }
+    
+    /**
+     * The class State defines the fields associated with a turtle's state
+     */
+    
     private static class State {
         
-        private Point2D position;
-        private double angle;
+        private Point2D position; //Point2D object indicating turtle's position
+        private double angle;     //Double indicating turtle's orientation
         
+        /**
+         * The constructor method State assigns the position and angle values
+         * corresponding to the turtle's current state
+         *
+         * @param position Point2D object indicating turtle's position
+         * @param angle Double indicating turtle's orientation
+         */
+         
         private State(Point2D position, double angle) {
             
             this.position = position;
             this.angle = angle;
         }
         
+        /**
+         * The getter method getPosition retrieves the turtle's current state's
+         * position
+         *
+         * @return Point2D object indicating turtle's position
+         */
+        
         Point2D getPosition() {
             
             return position;
         }
+        
+        /**
+         * The getter method getAngle retrieves the turtle's current state's
+         * angle
+         *
+         * @return Double indicating turtle's orientation
+         */
         
         double getAngle() {
             
