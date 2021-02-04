@@ -112,6 +112,12 @@ public class LSystem {
         return null;
     }
     
+    /**
+     * The class Axioms
+     * 
+     * 
+     */
+    
     private static class Axioms implements Symbol.Seq {
         
         private List<Symbol> elements = new ArrayList<Symbol>();;
