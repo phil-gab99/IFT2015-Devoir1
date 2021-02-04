@@ -48,7 +48,7 @@ import org.json.JSONTokener;
  * @version 1.0 2021-mm-dd
  */
 
-public class LSystem {
+public class LSystem extends AbstractLSystem {
     
     private ArrayList<Symbol> alphabet;
     private Map<Symbol, List<Symbol.Seq>> rules;
@@ -64,7 +64,6 @@ public class LSystem {
     }
     
     public Symbol addSymbol(char sym) {
-        // (maybe warning) this could bind the element in the arraylist to the returned value
         
         alphabet.add(new Symbol(sym));
         return alphabet.get(alphabet.size() - 1);
@@ -72,17 +71,13 @@ public class LSystem {
     
     public void addRule(Symbol sym, String expansion) {
 
-        //Retrieving expansions list for a given symbol and appropriate sequence
+        //Retrieving expansions list for given symbol and appropriate sequence
         List<Symbol.Seq> expansionList = rules.get(sym);
         Symbol.Seq sequence = Sequence.strToSeq(expansion);
     
         if (rules.containsKey(sym)) { //Symbol already present in rules
 
-            //Avoid duplicate expansions
-            if (!(expansionList.contains(sequence))) {
-                
-                expansionList.add(sequence);
-            }
+            expansionList.add(sequence);
         } else {
             
             expansionList = new ArrayList<Symbol.Seq>();
@@ -108,20 +103,19 @@ public class LSystem {
     
     public Symbol.Seq rewrite(Symbol sym) {
         
-        Character key = sym.getValue();
+        List<Symbol.Seq> expansions = rules.get(sym);
         
-        if(!this.rules.containsKey(key) || this.rules.get(key).size() == 0) {
+        if(expansions == null || expansions.size() == 0) {
             
             return null;
         }
         
-        ArrayList<Symbol.Seq> temp = this.rules.get(key);
-        return temp.get(new Random().nextInt(temp.size()));
+        return expansions.get(new Random().nextInt(expansions.size()));
     }
     
     public void tell(Turtle turtle, Symbol sym) {
         
-        // turtle.getClass().getDeclaredMethod(str).invoke;
+        turtle.getClass().getDeclaredMethod(actions.get(sym)).invoke(null, new Object[0]);
     }
     
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
