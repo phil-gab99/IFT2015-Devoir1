@@ -4,7 +4,8 @@ import java.awt.geom.Point2D;
 import java.util.Stack;
 
 /**
- * The class TurtlePointer manages 
+ * The class TurtlePointer manages the turtle actions and keeps track of its
+ * states.
  * 
  * @author Philippe Gabriel
  * @version 1.0 2021-mm-dd
@@ -24,7 +25,9 @@ public class TurtlePointer implements Turtle {
         //Draws
     }
     
-    
+    public void setUnits(double step, double delta) {
+        
+    }
     
     private static class State {
         
