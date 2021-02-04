@@ -10,7 +10,7 @@ import java.util.List;
 
 // Implémentez les opérations principales du TA:
     //addSymbol                    DONE (Might need to prevent duplicates)
-    //addRule   
+    //addRule                      DONE
     //setAction
     //rewrite
     //tell
@@ -65,13 +65,14 @@ public class LSystem {
     }
     
     public void addRule(Symbol sym, String expansion) {
-        //TODO: Rule
 
+        //Retreving expansions list for a given symbol and appropriate sequence
         List<Symbol.Seq> expansionList = rules.get(sym);
         Symbol.Seq sequence = Sequence.strToSeq(expansion);
     
-        if (rules.containsKey(sym)) {
+        if (rules.containsKey(sym)) { //Symbol already present in rules
 
+            //Avoid duplicate expansions
             if (!(expansionList.contains(sequence))) {
                 
                 expansionList.add(sequence);
@@ -82,15 +83,6 @@ public class LSystem {
             expansionList.add(sequence);
             rules.put(sym, expansionList);
         }
-    
-        // ArrayList<Symbol.Seq> temp;
-        // if(this.rules.containsKey(key)){
-        //     temp = this.rules.get(key);
-        // }else{
-        //     temp = new ArrayList<Symbol.Seq>();
-        // }
-        // temp.add(expansion); // add the expansion therefore String -> Seq
-        // this.rules.put(key, temp);
     }
     
     public void setAction(Symbol sym, String expansion) {
