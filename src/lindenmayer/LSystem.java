@@ -1,10 +1,10 @@
 package lindenmayer;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.awt.geom.Rectangle2D;
 import java.util.Random;
+import java.util.List;
 
 /**
  * The class LSystem
