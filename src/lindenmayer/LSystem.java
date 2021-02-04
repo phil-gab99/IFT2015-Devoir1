@@ -32,9 +32,6 @@ import java.util.List;
         //(if ("draw".equals(str) ...) est plus simple à coder et nous suffit
         //parfaitement.
 
-// IDEA: For rules of type Map<Symbol, List<Symbol.Seq>>, check instantiating
-    //inner list -> https://stackoverflow.com/questions/16907594/list-as-value-of-hashmap-in-java
-
 /**
  * The class LSystem
  * 
