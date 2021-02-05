@@ -1,5 +1,7 @@
 package lindenmayer;
 
+import java.awt.Point;
+
 import java.awt.geom.Point2D;
 
 /**

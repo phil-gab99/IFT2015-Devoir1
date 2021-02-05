@@ -23,6 +23,32 @@ public abstract class AbstractLSystem {
     public abstract Symbol addSymbol(char sym);
     
     /**
+     * The method {@link #getSymbol} retrieves, via the given character, its
+     * corresponding symbol from the {@link LSystem}'s alphabet. Implementing
+     * classes should ensure to have at least overriden the {@link #equals}
+     * from the {@link #Object} class for proper comparison in their
+     * {@link Symbol} class.
+     *
+     * @param c <code>char</code> value to be compared
+     * @return The corresponding {@link Symbol} from the {@link LSystem}'s
+     * alphabet or null if not within it
+     */
+    
+    public abstract Symbol getSymbol(char c);
+    
+    /**
+     * The method {@link #getSymbol} retrieves, via the given String, its
+     * corresponding symbol from the {@link LSystem}'s alphabet. Strings of
+     * a greater length than 1 do not need to be considered.
+     *
+     * @param str String to be compared
+     * @return The corresponding {@link Symbol} from the {@link LSystem}'s
+     * alphabet or null if not within it
+     */
+     
+    public abstract Symbol getSymbol(String str);
+    
+    /**
      * The method {@link #addRule} Adds a new rule to the grammar. Called while
      * parsing the input. Symbols on the right-hand side are encoded by
      * <code>char</code>s in the same way as in {@link #addSymbol(char)}. It is

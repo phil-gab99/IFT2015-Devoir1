@@ -33,7 +33,7 @@ import org.json.JSONTokener;
 
 public class LSystem extends AbstractLSystem {
     
-    private ArrayList<Symbol> alphabet; // Alphabet associated with LSystem
+    private List<Symbol> alphabet; // Alphabet associated with LSystem
     private Map<Symbol, List<Symbol.Seq>> rules; // Symbol-Sequence pair rules
     private Symbol.Seq axiom; // Starting sequence of current LSystem
     private Map<Symbol, String> actions; // Symbol-Action pairing
@@ -55,6 +55,31 @@ public class LSystem extends AbstractLSystem {
         
         alphabet.add(new Symbol(sym));
         return alphabet.get(alphabet.size() - 1);
+    }
+    
+    public Symbol getSymbol(char c) {
+        
+        Symbol sym = new Symbol(c);
+        
+        for (Symbol s : alphabet) {
+            
+            if (s.equals(sym)) {
+                
+                return s;
+            }
+        }
+        
+        return null;
+    }
+    
+    public Symbol getSymbol(String str) {
+        
+        if (str.length() > 1) {
+            
+            return null;
+        }
+        
+        return getSymbol(str.charAt(0));
     }
     
     public void addRule(Symbol sym, String expansion) {
@@ -231,7 +256,7 @@ public class LSystem extends AbstractLSystem {
         
         for (int i = 0; i < alphabet.length(); i++) {
             
-            system.addSymbol(alphabet.get(i));
+            system.addSymbol((char)(alphabet.get(i)));
         }
     }
     
@@ -247,7 +272,12 @@ public class LSystem extends AbstractLSystem {
         
         for (String key : rules.keySet()) {
             
-            system.addRule(key, rules.get(key));
+            Symbol sym = system.getSymbol(key);
+            
+            if (sym != null) {
+                
+                system.addRule(sym, (String)(rules.get(key)));
+            }
         }
     }
     
@@ -263,7 +293,9 @@ public class LSystem extends AbstractLSystem {
         
         for (String key : actions.keySet()) {
             
-            system.setAction(key, actions.get(key));;
+            Symbol sym = system.getSymbol(key);
+            
+            system.setAction(sym, (String)(actions.get(key)));
         }
     }
     
