@@ -2,6 +2,14 @@ package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
 
+/**
+ * The abstract class {@link @AbstractLSystem} illustrates the interface to an
+ * L-System
+ *
+ * @author Philippe Gabriel
+ * @version 1.0 2021-mm-dd
+ */
+
 public abstract class AbstractLSystem {
     
     /**
@@ -92,13 +100,13 @@ public abstract class AbstractLSystem {
     
     /**
      * The method {@link tell} draws the result after multiple rounds of
-     * rewriting, starting from a single symbol. Symbols with no rewriting
+     * rewriting, starting from a given sequence. Symbols with no rewriting
      * rules are simply copied at each round.
      * 
      * @param turtle {@link Turtle} used for drawing
-     * @param sym the starting sequence in round 0: a single symbol
-     * @param rounds number of rounds
+     * @param seq {@link Symbol.Seq} starting sequence
+     * @param n Integer indicating number of rounds
      * @return bounding box (minimal rectangle covering all visited turtle positions)
      */
-    public abstract Rectangle2D tell(Turtle turtle, Symbol.Seq sym, int n);
+    public abstract Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n);
 }
