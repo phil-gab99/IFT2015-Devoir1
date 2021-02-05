@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * The abstract class {@link @AbstractLSystem} illustrates the interface to an
- * L-System
+ * L-System.
  *
  * @author Philippe Gabriel
  * @version 1.0 2021-mm-dd
