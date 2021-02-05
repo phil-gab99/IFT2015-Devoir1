@@ -146,7 +146,7 @@ public class LSystem extends AbstractLSystem {
             //symbole-par-symbole, sinon on fait des appels récursifs de
             //tell(..,n-1)). Élaborez l’algorithme sur papier avant de coder
             //(p.e., vérifiez l’exécution avec n=2,3 et des règles simples).
-        // Si la tortue passe par les coordonnées (x1, y1), … (xm, ym), alors
+        //Si la tortue passe par les coordonnées (x1, y1), … (xm, ym), alors
             //on a besoin des coordonnées extremes xmin=min{x1, …, xm},
             //xmax, ymin, et ymax (d’où la largeur et hauteur se calculent par
             //w=xmax–xmin et h=ymax–ymin).
