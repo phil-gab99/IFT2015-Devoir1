@@ -80,11 +80,12 @@ public abstract class AbstractLSystem {
 
     /**
      * The method {@link #applyRules} calculates the result of multiple rounds
-     * of rewriting. Symbols with no rewriting rules are simply copied at each round. 
-     * 
+     * of rewriting. Symbols with no rewriting rules are simply copied at each
+     * round.
+     *
      * @param seq starting sequence
      * @param n number of rounds
-     * @return sequence obtained after rewriting the entire sequence <var>n</var> times 
+     * @return sequence obtained after rewriting the entire sequence <var>n</var> times
      */
     public abstract Symbol.Seq applyRules(Symbol.Seq seq, int n);
     

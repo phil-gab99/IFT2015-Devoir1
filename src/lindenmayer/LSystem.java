@@ -120,7 +120,21 @@ public class LSystem extends AbstractLSystem {
     
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
         
-        return null;
+        Symbol.Seq interm;
+        
+        for (int i = 0; i < n; i++) {
+            
+            interm = new Sequence();
+            
+            for (Symbol s : seq) {
+                
+                interm.append(rewrite(s));
+            }
+            
+            seq = interm;
+        }
+        
+        return seq;
     }
     
     public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n) {
@@ -155,6 +169,14 @@ public class LSystem extends AbstractLSystem {
         public void add(Symbol sym) {
             
             elements.add(sym);
+        }
+        
+        public void append(Symbol.Seq sequence) {
+            
+            for (Symbol s : sequence) {
+                
+                add(s);
+            }
         }
         
         public Iterator<Symbol> iterator() {

@@ -59,6 +59,6 @@ public class Symbol {
     public interface Seq extends Iterable<Symbol> {
         
         void add(Symbol sym);
-        // Symbol.Seq strToSeq(String a);
+        void append(Seq sequence);
     }
 }
