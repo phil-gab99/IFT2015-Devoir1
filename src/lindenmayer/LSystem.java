@@ -242,8 +242,9 @@ public class LSystem extends AbstractLSystem {
     
     /**
      * The class {@link Sequence} defines a sequence of symbols and provides a
-     * set of 
-     * 
+     * set of useful methods for managing sequences.
+     *
+     * @see Symbol.Seq
      */
     
     private static class Sequence implements Symbol.Seq {
@@ -263,11 +264,22 @@ public class LSystem extends AbstractLSystem {
             }
         }
         
+        /**
+         * @see java.lang.Iterable
+         */
+         @Override
         public Iterator<Symbol> iterator() {
             
             return elements.iterator();
         }
         
+        /**
+         * The method {@link #strToSeq} converts a String into a
+         * {@link Sequence} of {@link Symbol}'s.
+         *
+         * @param characters String to be converted
+         */
+         
         private static Symbol.Seq strToSeq(String characters) {
             
             Symbol.Seq sequence = new Sequence();

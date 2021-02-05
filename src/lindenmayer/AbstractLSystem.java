@@ -63,7 +63,7 @@ public abstract class AbstractLSystem {
      * called with the same {@link Symbol} argument more than once),
      * then one of them is chosen randomly</li></ul>.
      *
-     * @param sym {@link Symbol} to be rewritten.
+     * @param sym {@link Symbol} to be rewritten
      * @return One of the applicable rules chosen randomly or null if no rule
      * applies
      */
