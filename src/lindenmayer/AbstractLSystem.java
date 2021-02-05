@@ -83,18 +83,19 @@ public abstract class AbstractLSystem {
      * of rewriting. Symbols with no rewriting rules are simply copied at each
      * round.
      *
-     * @param seq starting sequence
-     * @param n number of rounds
-     * @return sequence obtained after rewriting the entire sequence <var>n</var> times
+     * @param seq {@link Symbol#Seq} object representing starting sequence
+     * @param n Integer indicating number of rounds
+     * @return {@link Symbol#Seq} obtained after rewriting the entire sequence
+     * <var>n</var> times
      */
     public abstract Symbol.Seq applyRules(Symbol.Seq seq, int n);
     
     /**
-     * Draws the result after multiple rounds of rewriting, starting from a single symbol. 
-     * Symbols with no rewriting rules are simply copied 
-     * at each round. 
+     * The method {@link tell} draws the result after multiple rounds of
+     * rewriting, starting from a single symbol. Symbols with no rewriting
+     * rules are simply copied at each round.
      * 
-     * @param turtle turtle used for drawing
+     * @param turtle {@link Turtle} used for drawing
      * @param sym the starting sequence in round 0: a single symbol
      * @param rounds number of rounds
      * @return bounding box (minimal rectangle covering all visited turtle positions)

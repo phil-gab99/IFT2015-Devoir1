@@ -20,9 +20,9 @@ import org.json.JSONTokener;
     //addSymbol                    DONE (Might need to prevent duplicates)
     //addRule                      DONE
     //setAction                    DONE
-    //rewrite
-    //tell
-    //Rectangle2D tell
+    //rewrite                      DONE
+    //tell                         DONE
+    //Rectangle2D tell             HEEEELP!!!!
     //setAxiom                     DONE
     //getAxiom                     DONE
     //classe Symbol                DONE (Could add more methods if needed)
@@ -34,12 +34,12 @@ import org.json.JSONTokener;
         //les associations char → Symbol
     //Stocker les règles dans Map<Symbol,List<Symbol.Seq>> DONE
         //Permet de récupérer toutes les règles d’un
-        //symbole dans une liste et en choisir un au hasard
-    //Possible d’implémenter tell en accédant aux méthodes de tortue
-        //directement (via getClass().getDeclaredMethod + Method.invoke si une
-        //telle solution vous plaît) mais une série de if-else
-        //(if ("draw".equals(str) ...) est plus simple à coder et nous suffit
-        //parfaitement.
+        //symbole dans une liste et en choisir un hasard
+    //Possible d’implémenter tell en accédant aux méthodes DONE
+        //de tortue directement (via getClass().getDeclaredMethod +
+        //Method.invoke si une telle solution vous plaît) mais une série de
+        //if-else (if ("draw".equals(str) ...) est plus simple à coder et nous
+        //suffit parfaitement.
 
 /**
  * The class LSystem
@@ -52,14 +52,14 @@ public class LSystem extends AbstractLSystem {
     
     private ArrayList<Symbol> alphabet;
     private Map<Symbol, List<Symbol.Seq>> rules;
-    private HashMap<Symbol, String> actions;
+    private Map<Symbol, String> actions;
     private Symbol.Seq axiom;
     
     public LSystem() {
         
         alphabet = new ArrayList<Symbol>();
         rules = new HashMap<Symbol, List<Symbol.Seq>>();
-        actions = new HashMap<Symbol, Symbol.Seq>();
+        actions = new HashMap<Symbol, String>();
         axiom = new Sequence();
     }
     
@@ -115,7 +115,13 @@ public class LSystem extends AbstractLSystem {
     
     public void tell(Turtle turtle, Symbol sym) {
         
-        turtle.getClass().getDeclaredMethod(actions.get(sym)).invoke(null, new Object[0]);
+        try {
+            
+            turtle.getClass().getDeclaredMethod(actions.get(sym)).invoke(null, new Object[0]);
+        } catch(Exception e) {
+            
+            e.printStackTrace();
+        }
     }
     
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
@@ -128,7 +134,15 @@ public class LSystem extends AbstractLSystem {
             
             for (Symbol s : seq) {
                 
-                interm.append(rewrite(s));
+                Symbol.Seq exp = rewrite(s);
+                
+                if (exp == null) {
+                    
+                    interm.add(s);
+                } else {
+                    
+                    interm.append(exp);
+                }
             }
             
             seq = interm;
@@ -137,22 +151,31 @@ public class LSystem extends AbstractLSystem {
         return seq;
     }
     
-    public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n) {
+    public Rectangle2D tell(Turtle turtle, Symbol seq, int n) {
         
         return null;
     }
     
-    public static void readJSONFile(String file, LSystem S, Turtle T) throws IOException {
+    public static void readJSONFile(String file, LSystem S) throws IOException {
         
         JSONObject input = new JSONObject(new JSONTokener(new FileReader(file)));
-        JSONArray alphabet = input.getJSONArray("alphabet");
-        String axiom = input.getString("axiom");
-        S.setAxiom(axiom);
         
-        for (int i = 0; i < alphabet.length(); i++) {
+        JSONArray alphabet = input.getJSONArray("alphabet");
+        JSONObject rules = input.getJSONObject("rules");
+        String axiom = input.getString("axiom");
+        JSONObject actions = input.getJSONObject("actions");
+        JSONObject parameters = input.getJSONObject("parameters");
+        
+        createAlphabet(alphabet);
+        
+        S.setAxiom(axiom);
+    }
+    
+    private static void createAlphabet(JSONArray symbols) {
+        
+        for (int i = 0; i < symbols.length(); i++) {
             
-            String letter = alphabet.getString(i);
-            Symbol sym = S(letter.charAt(0));
+            System.out.println(symbols.get(i));
         }
     }
     

@@ -42,7 +42,7 @@ public class Symbol {
             return false;
         }
         
-        return value == (Symbol)o.value;
+        return value == ((Symbol)o).value;
     }
 
     @Override
