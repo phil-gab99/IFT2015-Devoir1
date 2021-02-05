@@ -16,30 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-// Implémentez les opérations principales du TA:
-    //addSymbol                    DONE (Might need to prevent duplicates)
-    //addRule                      DONE
-    //setAction                    DONE
-    //rewrite                      DONE
-    //tell                         DONE
-    //Rectangle2D tell             HEEEELP!!!!
-    //setAxiom                     DONE
-    //getAxiom                     DONE
-    //classe Symbol                DONE (Could add more methods if needed)
-    //implémentation de Symbol.Seq DONE (Could add more methods if needed)
-    //classe LSystem.              WORKING ON IT
 // Indices:
-    //Utilisez toujours la même instance de Symbol         IMPORTANT KEEP TRACK
-    //Table Map<Character,Symbol> est utile pour
-        //les associations char → Symbol
-    //Stocker les règles dans Map<Symbol,List<Symbol.Seq>> DONE
-        //Permet de récupérer toutes les règles d’un
-        //symbole dans une liste et en choisir un hasard
-    //Possible d’implémenter tell en accédant aux méthodes DONE
-        //de tortue directement (via getClass().getDeclaredMethod +
-        //Method.invoke si une telle solution vous plaît) mais une série de
-        //if-else (if ("draw".equals(str) ...) est plus simple à coder et nous
-        //suffit parfaitement.
+    //Table Map<Character,Symbol> est utile pour les associations char → Symbol
 
 /**
  * The class {@link #LSystem} builds its data structures by calling
@@ -160,7 +138,34 @@ public class LSystem extends AbstractLSystem {
         return seq;
     }
     
+    // Indice:
+        //On veut éviter le calcul explicite de la chaîne complète
+            //(donc ne pas juste faire applyRules(..,n), mais plutôt exploîter
+            //la récursivité avec une tortue «intelligente».
+        //Si n=0, on exécute directement la chaîne (avec tell(turtle, sym))
+            //symbole-par-symbole, sinon on fait des appels récursifs de
+            //tell(..,n-1)). Élaborez l’algorithme sur papier avant de coder
+            //(p.e., vérifiez l’exécution avec n=2,3 et des règles simples).
+        // Si la tortue passe par les coordonnées (x1, y1), … (xm, ym), alors
+            //on a besoin des coordonnées extremes xmin=min{x1, …, xm},
+            //xmax, ymin, et ymax (d’où la largeur et hauteur se calculent par
+            //w=xmax–xmin et h=ymax–ymin).
+        //Il est pratique de travailler avec des rectangles en calculant leur
+            //union comme dictée par la géométrie (étudiez la documentation de
+            //Rectangle2D).
+    
     public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n) {
+        
+        if (n == 0) {
+            
+            for (Symbol s : seq) {
+                
+                tell(turtle, s);
+            }
+        } else {
+            
+            return tell(turtle, seq, n - 1);
+        }
         
         return null;
     }
@@ -190,6 +195,8 @@ public class LSystem extends AbstractLSystem {
         createRules(rules, system);
         system.setAxiom(axiom);
         createActions(actions, system);
+        
+        // Incomplete method, need to apply start parameters and initiate
     }
     
     /**
