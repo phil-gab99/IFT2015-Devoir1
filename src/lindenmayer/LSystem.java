@@ -156,7 +156,8 @@ public class LSystem extends AbstractLSystem {
         return null;
     }
     
-    public static void readJSONFile(String file, LSystem S) throws IOException {
+    public static void readJSONFile(String file, LSystem system, Turtle turtle)
+    throws IOException {
         
         JSONObject input = new JSONObject(new JSONTokener(new FileReader(file)));
         
@@ -166,16 +167,25 @@ public class LSystem extends AbstractLSystem {
         JSONObject actions = input.getJSONObject("actions");
         JSONObject parameters = input.getJSONObject("parameters");
         
-        createAlphabet(alphabet);
+        createAlphabet(alphabet, system);
+        createRules(rules, system);
         
         S.setAxiom(axiom);
     }
     
-    private static void createAlphabet(JSONArray symbols) {
+    private static void createAlphabet(JSONArray alphabet, LSystem system) {
         
-        for (int i = 0; i < symbols.length(); i++) {
+        for (int i = 0; i < alphabet.length(); i++) {
             
-            System.out.println(symbols.get(i));
+            system.addSymbol(alphabet.get(i));
+        }
+    }
+    
+    private static void createRules(JSONObject rules, LSystem system) {
+        
+        for (String key : rules.keySet()) {
+            
+            
         }
     }
     
