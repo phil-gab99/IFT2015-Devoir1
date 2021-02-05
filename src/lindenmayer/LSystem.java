@@ -1,5 +1,7 @@
 package lindenmayer;
 
+import java.awt.Rectangle;
+
 import java.awt.geom.Rectangle2D;
 
 import java.io.FileReader;
@@ -158,16 +160,34 @@ public class LSystem extends AbstractLSystem {
         
         if (n == 0) {
             
+            Rectangle2D rec1 = new Rectangle((int)(Turtle.DFLT_COORD.getX()),
+            (int)(Turtle.DFLT_COORD.getY()), 0, 0);
+            
             for (Symbol s : seq) {
                 
                 tell(turtle, s);
+                
+                int xmin = (int)Math.min(Turtle.DFLT_COORD.getX(),
+                turtle.getPosition().getX());
+                int xmax = (int)Math.max(Turtle.DFLT_COORD.getX(),
+                turtle.getPosition().getX());
+                
+                int ymin = (int)Math.min(Turtle.DFLT_COORD.getY(),
+                turtle.getPosition().getY());
+                int ymax = (int)Math.max(Turtle.DFLT_COORD.getY(),
+                turtle.getPosition().getY());
+                
+                Rectangle2D rec2 = new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin);
+                
+                Rectangle2D.union(rec1, rec2, rec1);
             }
+            
+            return rec1;
         } else {
             
+            seq = applyRules(seq, 1);
             return tell(turtle, seq, n - 1);
         }
-        
-        return null;
     }
     
     /**
@@ -274,7 +294,7 @@ public class LSystem extends AbstractLSystem {
         /**
          * @see java.lang.Iterable
          */
-         @Override
+        @Override
         public Iterator<Symbol> iterator() {
             
             return elements.iterator();

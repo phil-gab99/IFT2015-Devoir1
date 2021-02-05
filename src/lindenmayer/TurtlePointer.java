@@ -14,7 +14,7 @@ import java.util.Stack;
 
 public class TurtlePointer implements Turtle {
     
-    private Point2D coords;   //Point2D indicating turtle's position
+    private Point2D coord;    //Point2D indicating turtle's position
     private double orient;    //Double indicating turtle's current orientation
     
     private Point2D unitStep; //Point2D holding the set unit step components
@@ -29,7 +29,7 @@ public class TurtlePointer implements Turtle {
     
     public TurtlePointer() {
         
-        init(new Point(0, 0), 0);
+        init(DFLT_COORD, DFLT_ANGLE);
     }
     
     public void draw() {
@@ -62,14 +62,14 @@ public class TurtlePointer implements Turtle {
     
     public void push() {
         
-        savedStates.push(new State(coords, orient));
+        savedStates.push(new State(coord, orient));
     }
     
     public void pop() {
         
         State previous = savedStates.pop();
         
-        coords = previous.position;
+        coord = previous.position;
         orient = previous.angle;
     }
     
@@ -80,7 +80,7 @@ public class TurtlePointer implements Turtle {
     
     public void init(Point2D pos, double angle_deg) {
         
-        coords = pos;
+        coord = pos;
         orient = angle_deg;
         
         unitStep = new Point(0, 0);
@@ -91,7 +91,7 @@ public class TurtlePointer implements Turtle {
     
     public Point2D getPosition() {
         
-        return coords;
+        return coord;
     }
     
     public double getAngle() {
@@ -129,8 +129,8 @@ public class TurtlePointer implements Turtle {
     
     private void updateLocation() {
     
-        coords.setLocation(coords.getX() + unitStep.getX(),
-        coords.getY() + unitStep.getY());
+        coord.setLocation(coord.getX() + unitStep.getX(),
+        coord.getY() + unitStep.getY());
     }
     
     /**
