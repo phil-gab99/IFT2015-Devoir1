@@ -19,6 +19,7 @@ public abstract class AbstractLSystem {
      * @param sym <code>char</code> used in the input to denote this symbol
      * @return Corresponding {@link Symbol} in the alphabet
      */
+
     public abstract Symbol addSymbol(char sym);
     
     /**
@@ -31,6 +32,7 @@ public abstract class AbstractLSystem {
      * @param sym {@link Symbol} on left-hand side to be rewritten by this rule
      * @param expansion Sequence on right-hand side
      */
+
     public abstract void addRule(Symbol sym, String expansion);
     
     /**
@@ -44,6 +46,7 @@ public abstract class AbstractLSystem {
      * @param action A turtle action
      * @see {@link Turtle}
      */
+
     public abstract void setAction(Symbol sym, String action);
     
     /**
@@ -53,6 +56,7 @@ public abstract class AbstractLSystem {
      * 
      * @param str Starting sequence
      */
+
     public abstract void setAxiom(String str);
  
     /**
@@ -61,6 +65,7 @@ public abstract class AbstractLSystem {
      *
      * @return {@link Symbol#Seq} axiom defined as starting sequence
      */
+
     public abstract Symbol.Seq getAxiom();
     
     /**
@@ -75,6 +80,7 @@ public abstract class AbstractLSystem {
      * @return One of the applicable rules chosen randomly or null if no rule
      * applies
      */
+
     public abstract Symbol.Seq rewrite(Symbol sym);
     
     /**
@@ -84,6 +90,7 @@ public abstract class AbstractLSystem {
      * @param turtle {@link Turtle} object used for executing the action
      * @param sym {@link Symbol} that needs to be executed
      */
+
     public abstract void tell(Turtle turtle, Symbol sym);
 
     /**
@@ -96,6 +103,7 @@ public abstract class AbstractLSystem {
      * @return {@link Symbol#Seq} obtained after rewriting the entire sequence
      * <var>n</var> times
      */
+
     public abstract Symbol.Seq applyRules(Symbol.Seq seq, int n);
     
     /**
@@ -108,5 +116,6 @@ public abstract class AbstractLSystem {
      * @param n Integer indicating number of rounds
      * @return bounding box (minimal rectangle covering all visited turtle positions)
      */
+
     public abstract Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n);
 }
