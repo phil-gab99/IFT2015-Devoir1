@@ -86,14 +86,14 @@ public class LSystem extends AbstractLSystem {
         }
     }
     
-    public void setAction(Symbol sym, String action) {
-
-        actions.put(sym, action);
-    }
-    
     public void setAxiom(String str) {
     
         axiom = Sequence.strToSeq(str);
+    }
+    
+    public void setAction(Symbol sym, String action) {
+
+        actions.put(sym, action);
     }
     
     public Symbol.Seq getAxiom() {
@@ -169,8 +169,8 @@ public class LSystem extends AbstractLSystem {
         
         createAlphabet(alphabet, system);
         createRules(rules, system);
-        
-        S.setAxiom(axiom);
+        system.setAxiom(axiom);
+        createActions(actions, system);
     }
     
     private static void createAlphabet(JSONArray alphabet, LSystem system) {
@@ -185,7 +185,15 @@ public class LSystem extends AbstractLSystem {
         
         for (String key : rules.keySet()) {
             
+            system.addRule(key, rules.get(key));
+        }
+    }
+    
+    private static void createActions(JSONObject actions, LSystem system) {
+        
+        for (String key : actions.keySet()) {
             
+            system.setAction(key, actions.get(key));;
         }
     }
     
