@@ -43,7 +43,7 @@ public class JSONToolsLSystem {
         system.setAxiom(axiom);
         createActions(actions, system);
         
-        // Incomplete method, need to apply start parameters and initiate
+        turtle.init();
     }
 
     /**
@@ -58,7 +58,7 @@ public class JSONToolsLSystem {
         
         for (int i = 0; i < alphabet.length(); i++) {
             
-            system.addSymbol((char)(alphabet.get(i)));
+            system.addSymbol((char)(alphabet.getInt(i)));
         }
     }
 
@@ -78,7 +78,7 @@ public class JSONToolsLSystem {
             
             if (sym != null) {
                 
-                system.addRule(sym, (String)(rules.get(key)));
+                system.addRule(sym, (rules.getString(key)));
             }
         }
     }
@@ -97,7 +97,7 @@ public class JSONToolsLSystem {
             
             Symbol sym = system.getSymbol(key);
             
-            system.setAction(sym, (String)(actions.get(key)));
+            system.setAction(sym, (actions.getString(key)));
         }
     }
 }

@@ -24,10 +24,7 @@ public abstract class AbstractLSystem {
     
     /**
      * The method {@link #getSymbol} retrieves, via the given character, its
-     * corresponding symbol from the {@link LSystem}'s alphabet. Implementing
-     * classes should ensure to have at least overriden the {@link #equals}
-     * from the {@link #Object} class for proper comparison in their
-     * {@link Symbol} class.
+     * corresponding symbol from the {@link LSystem}'s alphabet.
      *
      * @param c <code>char</code> value to be compared
      * @return The corresponding {@link Symbol} from the {@link LSystem}'s

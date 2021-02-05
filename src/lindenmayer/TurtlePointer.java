@@ -22,16 +22,6 @@ public class TurtlePointer implements Turtle {
     
     private Stack<State> savedStates; //Stack keeping track of turtle states
     
-    /**
-     * The constructor method {@link #TurtlePointer} initializes a Turtle with
-     * an empty Stack and default position and movement values.
-     */
-    
-    public TurtlePointer() {
-        
-        init(DFLT_COORD, DFLT_ANGLE);
-    }
-    
     public void draw() {
         
         //TODO: Draws
@@ -82,9 +72,6 @@ public class TurtlePointer implements Turtle {
         
         coord = pos;
         orient = angle_deg;
-        
-        unitStep = new Point(0, 0);
-        unitAngle = 0;
         
         savedStates = new Stack<State>();
     }

@@ -11,9 +11,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.List;
 
-// Indices:
-    //Table Map<Character,Symbol> est utile pour les associations char → Symbol
-
 /**
  * The class {@link #LSystem} builds its data structures by calling
  * {@link #addSymbol}, {@link #addRule}, {@link #addRule}, {@link #setAxiom}
@@ -30,6 +27,7 @@ public class LSystem extends AbstractLSystem {
     private Map<Symbol, List<Symbol.Seq>> rules; // Symbol-Sequence pair rules
     private Symbol.Seq axiom; // Starting sequence of current LSystem
     private Map<Symbol, String> actions; // Symbol-Action pairing
+    private Map<Character, Symbol> charSymPairs;
     
     /**
      * The constructor method {@link #LSystem} initializes the fields
@@ -42,27 +40,20 @@ public class LSystem extends AbstractLSystem {
         rules = new HashMap<Symbol, List<Symbol.Seq>>();
         axiom = new Sequence();
         actions = new HashMap<Symbol, String>();
+        charSymPairs = new HashMap<Character, Symbol>();
     }
     
     public Symbol addSymbol(char sym) {
         
         alphabet.add(new Symbol(sym));
+        charSymPairs.put(sym, alphabet.get(alphabet.size() - 1));
+        
         return alphabet.get(alphabet.size() - 1);
     }
     
     public Symbol getSymbol(char c) {
         
-        Symbol sym = new Symbol(c);
-        
-        for (Symbol s : alphabet) {
-            
-            if (s.equals(sym)) {
-                
-                return s;
-            }
-        }
-        
-        return null;
+        return charSymPairs.get(c);
     }
     
     public Symbol getSymbol(String str) {
@@ -157,22 +148,6 @@ public class LSystem extends AbstractLSystem {
         
         return seq;
     }
-    
-    // Indice:
-        //On veut éviter le calcul explicite de la chaîne complète
-            //(donc ne pas juste faire applyRules(..,n), mais plutôt exploîter
-            //la récursivité avec une tortue «intelligente».
-        //Si n=0, on exécute directement la chaîne (avec tell(turtle, sym))
-            //symbole-par-symbole, sinon on fait des appels récursifs de
-            //tell(..,n-1)). Élaborez l’algorithme sur papier avant de coder
-            //(p.e., vérifiez l’exécution avec n=2,3 et des règles simples).
-        //Si la tortue passe par les coordonnées (x1, y1), … (xm, ym), alors
-            //on a besoin des coordonnées extremes xmin=min{x1, …, xm},
-            //xmax, ymin, et ymax (d’où la largeur et hauteur se calculent par
-            //w=xmax–xmin et h=ymax–ymin).
-        //Il est pratique de travailler avec des rectangles en calculant leur
-            //union comme dictée par la géométrie (étudiez la documentation de
-            //Rectangle2D).
     
     public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n) {
         
