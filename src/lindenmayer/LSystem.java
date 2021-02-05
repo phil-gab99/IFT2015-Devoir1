@@ -42,7 +42,10 @@ import org.json.JSONTokener;
         //suffit parfaitement.
 
 /**
- * The class LSystem
+ * The class {@link #LSystem} builds its data structures by calling
+ * {@link #addSymbol}, {@link #addRule}, {@link #addRule}, {@link #setAxiom}
+ * and {@link #setAction}. The implementation provides access to symbols as
+ * instances of {@link Symbol}, and to sequences as {@link Symbol.Seq}.
  * 
  * @author Philippe Gabriel
  * @version 1.0 2021-mm-dd
@@ -50,17 +53,22 @@ import org.json.JSONTokener;
 
 public class LSystem extends AbstractLSystem {
     
-    private ArrayList<Symbol> alphabet;
-    private Map<Symbol, List<Symbol.Seq>> rules;
-    private Map<Symbol, String> actions;
-    private Symbol.Seq axiom;
+    private ArrayList<Symbol> alphabet; // Alphabet associated with LSystem
+    private Map<Symbol, List<Symbol.Seq>> rules; // Symbol-Sequence pair rules
+    private Symbol.Seq axiom; // Starting sequence of current LSystem
+    private Map<Symbol, String> actions; // Symbol-Action pairing
+    
+    /**
+     * The constructor method {@link #LSystem} initializes the fields
+     * associated with the current LSystem.
+     */
     
     public LSystem() {
         
         alphabet = new ArrayList<Symbol>();
         rules = new HashMap<Symbol, List<Symbol.Seq>>();
-        actions = new HashMap<Symbol, String>();
         axiom = new Sequence();
+        actions = new HashMap<Symbol, String>();
     }
     
     public Symbol addSymbol(char sym) {
@@ -117,7 +125,8 @@ public class LSystem extends AbstractLSystem {
         
         try {
             
-            turtle.getClass().getDeclaredMethod(actions.get(sym)).invoke(null, new Object[0]);
+            turtle.getClass().getDeclaredMethod(actions.get(sym))
+            .invoke(null, new Object[0]);
         } catch(Exception e) {
             
             e.printStackTrace();
@@ -126,7 +135,7 @@ public class LSystem extends AbstractLSystem {
     
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
         
-        Symbol.Seq interm;
+        Symbol.Seq interm; // Intermediate sequence after each iteration
         
         for (int i = 0; i < n; i++) {
             
@@ -151,27 +160,45 @@ public class LSystem extends AbstractLSystem {
         return seq;
     }
     
-    public Rectangle2D tell(Turtle turtle, Symbol seq, int n) {
+    public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n) {
         
         return null;
     }
     
+    /**
+     * The method {@link #readJSONFile} parses through a given JSON file and
+     * extracts the appropriate items for constructing an LSystem instance.
+     *
+     * @param file File path of JSON file
+     * @param system {@link LSystem} to build
+     * @param turtle {@link Turtle} associated with system
+     * @throws {@link java.io.IOException}
+     */
+    
     public static void readJSONFile(String file, LSystem system, Turtle turtle)
     throws IOException {
         
-        JSONObject input = new JSONObject(new JSONTokener(new FileReader(file)));
+        JSONObject in = new JSONObject(new JSONTokener(new FileReader(file)));
         
-        JSONArray alphabet = input.getJSONArray("alphabet");
-        JSONObject rules = input.getJSONObject("rules");
-        String axiom = input.getString("axiom");
-        JSONObject actions = input.getJSONObject("actions");
-        JSONObject parameters = input.getJSONObject("parameters");
+        JSONArray alphabet = in.getJSONArray("alphabet");
+        JSONObject rules = in.getJSONObject("rules");
+        String axiom = in.getString("axiom");
+        JSONObject actions = in.getJSONObject("actions");
+        JSONObject parameters = in.getJSONObject("parameters");
         
         createAlphabet(alphabet, system);
         createRules(rules, system);
         system.setAxiom(axiom);
         createActions(actions, system);
     }
+    
+    /**
+     * The method {@link #createAlphabet} generates a given {@link LSystem}'s
+     * alphabet from the {@link #JSONArray} alphabet parsed from a JSON file.
+     *
+     * @param alphabet {@link #JSONArray} holding the symbols
+     * @param system {@link LSystem} for which the alphabet is created
+     */
     
     private static void createAlphabet(JSONArray alphabet, LSystem system) {
         
@@ -181,6 +208,14 @@ public class LSystem extends AbstractLSystem {
         }
     }
     
+    /**
+     * The method {@link #createRules} generates a given {@link LSystem}'s
+     * rules from the {@link #JSONObject} rules parsed from a JSON file.
+     *
+     * @param rules {@link #JSONObject} holding the Symbol-Sequence pairs
+     * @param system {@link LSystem} for which the rules are created
+     */
+    
     private static void createRules(JSONObject rules, LSystem system) {
         
         for (String key : rules.keySet()) {
@@ -188,6 +223,14 @@ public class LSystem extends AbstractLSystem {
             system.addRule(key, rules.get(key));
         }
     }
+    
+    /**
+     * The method {@link #createAactions} generates a given {@link LSystem}'s
+     * actions from the {@link #JSONObject} actions parsed from a JSON file.
+     *
+     * @param actions {@link #JSONObject} holding the Symbol-Action pairs
+     * @param system {@link LSystem} for which the alphabet is created
+     */
     
     private static void createActions(JSONObject actions, LSystem system) {
         
@@ -198,8 +241,8 @@ public class LSystem extends AbstractLSystem {
     }
     
     /**
-     * The class Sequence
-     * 
+     * The class {@link Sequence} defines a sequence of symbols and provides a
+     * set of 
      * 
      */
     

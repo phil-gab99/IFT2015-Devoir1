@@ -5,8 +5,8 @@ import java.awt.Point;
 import java.util.Stack;
 
 /**
- * The class TurtlePointer manages the turtle actions and keeps track of its
- * states.
+ * The class {@link TurtlePointer} manages the turtle actions and keeps track
+ * of its states.
  * 
  * @author Philippe Gabriel
  * @version 1.0 2021-mm-dd
@@ -23,8 +23,8 @@ public class TurtlePointer implements Turtle {
     private Stack<State> savedStates; //Stack keeping track of turtle states
     
     /**
-     * The constructor method TurtlePointer initializes a Turtle with an empty
-     * Stack and default position and movement values
+     * The constructor method {@link #TurtlePointer} initializes a Turtle with
+     * an empty Stack and default position and movement values.
      */
     
     public TurtlePointer() {
@@ -106,31 +106,36 @@ public class TurtlePointer implements Turtle {
     }
     
     /**
-     * The method makeCoordinates converts a given length with help of its
-     * orientation to its corresponding horizontal and vertical components.
+     * The method {@link #makeCoordinates} converts a given length with help of
+     * its orientation to its corresponding horizontal and vertical components.
      * 
      * @param length Double representing length module
      * @param delta Double representing length orientation
      * @return Point object holding the components of the given length
      */
     
-    private Point makeCoordinates(double length, double angle) {
+    private Point2D makeCoordinates(double length, double angle) {
         
-        return new Point((int)(length * Math.cos(angle)), (int)(length * Math.sin(angle)));
+        Point2D point = new Point((int)(length * Math.cos(angle)),
+        (int)(length * Math.sin(angle)));
+        
+        return point;
     }
     
     /**
-     * The method updateLocation updates the turtle's location upon the calling
-     * of a method which affected its position
+     * The method {@link #updateLocation} updates the turtle's location upon
+     * the calling of a method which affected its position.
      */
     
     private void updateLocation() {
     
-        coords.setLocation(coords.getX() + unitStep.getX(), coords.getY() + unitStep.getY());
+        coords.setLocation(coords.getX() + unitStep.getX(),
+        coords.getY() + unitStep.getY());
     }
     
     /**
-     * The class State defines the fields associated with a turtle's state
+     * The class {@link State} defines the fields associated with a turtle's
+     * state.
      */
     
     private static class State {
@@ -139,8 +144,8 @@ public class TurtlePointer implements Turtle {
         private double angle;     //Double indicating turtle's orientation
         
         /**
-         * The constructor method State assigns the position and angle values
-         * corresponding to the turtle's current state
+         * The constructor method {@link State} assigns the position and angle
+         * values corresponding to the turtle's current state.
          *
          * @param position Point2D object indicating turtle's position
          * @param angle Double indicating turtle's orientation
