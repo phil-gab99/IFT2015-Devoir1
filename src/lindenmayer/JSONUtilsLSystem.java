@@ -46,8 +46,12 @@ public class JSONUtilsLSystem {
         system.setAxiom(axiom);
         createActions(actions, system);
         
+        ((TurtlePointer)turtle).createOutput(
+        file.substring(0, file.indexOf(".")));
+        
         turtle.init(
         new Point(start.getInt(0), start.getInt(1)), start.getDouble(2));
+        
         turtle.setUnits(
         parameters.getDouble("step"), parameters.getDouble("angle"));
     }

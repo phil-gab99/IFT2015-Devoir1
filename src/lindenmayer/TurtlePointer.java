@@ -1,7 +1,14 @@
 package lindenmayer;
 
-import java.awt.geom.Point2D;
 import java.awt.Point;
+
+import java.awt.geom.Point2D;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.Stack;
 
 /**
@@ -14,6 +21,10 @@ import java.util.Stack;
 
 public class TurtlePointer implements Turtle {
     
+    private BufferedWriter writer;
+    private File output;
+    private StringBuffer content;
+    
     private Point2D coord;    //Point2D indicating turtle's position
     private double orient;    //Double indicating turtle's current orientation
     
@@ -25,6 +36,7 @@ public class TurtlePointer implements Turtle {
     public void draw() {
         
         //TODO: Draws
+        System.out.println("draw");
         updateLocation();
     }
     
@@ -65,12 +77,17 @@ public class TurtlePointer implements Turtle {
     
     public void stay() {
         
+        // content.append();
         //TODO: Stays
     }
     
     public void init(Point2D pos, double angle_deg) {
         
-        System.out.println("%!PS-Adobe-3.0 EPSF-3.0");
+        content.append("%!PS-Adobe-3.0 EPSF-3.0\n");
+        content.append("%%Title: L-system\n");
+        content.append("%%Creator: lindenmayer.EPSTurtle\n");
+        content.append("%%BoundingBox: (atend)\n");
+        content.append("%%EndComments\n");
         
         coord = pos;
         orient = angle_deg;
@@ -92,6 +109,27 @@ public class TurtlePointer implements Turtle {
         
         unitStep = makeCoordinates(step, delta);
         unitAngle = delta;
+    }
+    
+    /**
+     * The method {@link createOutput} creates the PostScript file used to
+     * write the various the turtle actions to be undertaken.
+     *
+     * @param path String indicating path of file
+     */
+    
+    public void createOutput(String path) {
+        
+        try {
+            
+            output = new File(path + ".eps");
+            output.createNewFile();
+            
+            writer = new BufferedWriter(new FileWriter(output));
+        } catch(IOException e) {
+            
+            e.printStackTrace();
+        }
     }
     
     /**

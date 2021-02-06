@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 
 import java.awt.geom.Rectangle2D;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -125,10 +127,19 @@ public class LSystem extends AbstractLSystem {
         try {
             
             turtle.getClass().getDeclaredMethod(actions.get(sym))
-            .invoke(null, new Object[0]);
-        } catch(Exception e) {
+            .invoke(turtle, new Object[0]);
+        } catch(IllegalAccessException e) {
             
-            e.printStackTrace();
+            System.out.println("Illegal access");
+        } catch(NoSuchMethodException e) {
+            
+            System.out.println("No such method");
+        } catch(InvocationTargetException e) {
+            
+            System.out.println("Invocation target");
+        } catch(NullPointerException e) {
+            
+            System.out.println("Null pointer");
         }
     }
     
