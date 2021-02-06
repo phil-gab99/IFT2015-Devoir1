@@ -115,10 +115,10 @@ public class EPSTurtle implements Turtle {
         content.append("stroke\n");
         content.append("%%Trailer\n");
         content.append("%%BoundingBox: ");
-        content.append((int)(boundBox.getX()) + " ");
-        content.append((int)(boundBox.getY()) + " ");
-        content.append((int)(boundBox.getWidth()) + " ");
-        content.append((int)(boundBox.getHeight()) + "\n");
+        content.append((int)(boundBox.getMinX()) + " ");
+        content.append((int)(boundBox.getMinY()) + " ");
+        content.append((int)(boundBox.getMaxX()) + " ");
+        content.append((int)(boundBox.getMaxY()) + "\n");
         content.append("%%EOF");
         
         try {

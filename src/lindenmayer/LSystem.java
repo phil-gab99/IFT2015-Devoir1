@@ -162,35 +162,42 @@ public class LSystem extends AbstractLSystem {
         
         if (n == 0) {
             
-            double xmin = turtle.getPosition().getX();
-            double xmax = turtle.getPosition().getX();
-            double ymin = turtle.getPosition().getY();
-            double ymax = turtle.getPosition().getY();
+            Rectangle2D rec1 = new Rectangle2D.Double
+            (turtle.getPosition().getX(), turtle.getPosition().getY(), 0, 0);
             
             for (Symbol s : seq) {
                 
                 tell(turtle, s);
                 
-                if (xmin > turtle.getPosition().getX()) {
+                double xMin, xMax;
+                double yMin, yMax;
+                
+                if (rec1.getMinX() < turtle.getPosition().getX()) {
                     
-                    xmin = turtle.getPosition().getX();
-                } else if (xmax < turtle.getPosition().getX()) {
+                    xMin = rec1.getMinX();
+                    xMax = turtle.getPosition().getX();
+                } else {
                     
-                    xmax = turtle.getPosition().getX();
+                    xMin = turtle.getPosition().getX();
+                    xMax = rec1.getMinX();
                 }
                 
-                if (ymin > turtle.getPosition().getY()) {
+                if (rec1.getMinY() < turtle.getPosition().getY()) {
                     
-                    ymin = turtle.getPosition().getY();
-                } else if (ymax < turtle.getPosition().getY()) {
+                    yMin = rec1.getMinY();
+                    yMax = turtle.getPosition().getY();
+                } else {
                     
-                    ymax = turtle.getPosition().getY();
+                    yMin = turtle.getPosition().getY();
+                    yMax = rec1.getMinY();
                 }
+                
+                Rectangle2D rec2 = new Rectangle2D.Double(xMin, yMin, xMax - xMin, yMax - yMin);
+                
+                Rectangle2D.union(rec1, rec2, rec1);
             }
             
-            Rectangle2D rec = new Rectangle2D.Double(xmin, ymin, xmax, ymax);
-            
-            return rec;
+            return rec1;
         } else {
             
             seq = applyRules(seq, 1);

@@ -5,15 +5,11 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 // Minor current issues to look into
-    //The LSystem.tell(Turtle, Seq, int) bounding box calculation and
-        //questionnable recursion implementation
-    //The EPSTurtle.createOutput(String) and EPSTurtle.setBoundBox(Rectangle2D)
-        //implementations (should they be declared in interface or no?)
+    //The LSystem.tell(Turtle, Seq, int) questionnable recursion implementation
     //The EPSTurtle.pop() which doesn't follow requested guidelines but works
         //as opposed to failing when following guidelines
     //The EPSTurtle.turnL and EPSTurtle.turnR which are coded in reverse manner
         //in the teacher provided outputs
-    //Find alternative way to end drawing instead of using EPSTurtle.stay()
     //Adding the bonus implementations (III.5a and III.5b)
     //Consider adding an EPSOptimizedTurtle class for shorter EPS files
 
