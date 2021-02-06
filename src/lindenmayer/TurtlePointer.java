@@ -1,8 +1,11 @@
 package lindenmayer;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,11 +28,12 @@ public class TurtlePointer implements Turtle {
     private File output;
     private StringBuffer content;
     
+    private Rectangle2D boundBox;
     private Point2D coord;    //Point2D indicating turtle's position
     private double orient;    //Double indicating turtle's current orientation
     
-    private Point2D unitStep; //Point2D holding the set unit step components
-    private double unitAngle; //Double indicating set unit angle
+    private double unitStep;  //Double holding the set unit step length
+    private double unitAngle; //Double indicating set unit angle length
     
     private Stack<State> savedStates; //Stack keeping track of turtle states
     
@@ -37,35 +41,34 @@ public class TurtlePointer implements Turtle {
         
         updateLocation();
         
-        content.append(coord.getX() + " " + coord.getY() + " L");
+        content.append(coord.getX() + " " + coord.getY() + " L\n");
     }
     
     public void move() {
         
         updateLocation();
         
-        content.append(coord.getX() + " " + coord.getY() + " M");
+        content.append(coord.getX() + " " + coord.getY() + " M\n");
     }
     
     public void turnR() {
         
-        if ((orient -= unitAngle) < 0) {
-            
-            orient += 360;
-        } else {
-            
-            orient = orient % 360;
+        orient = (orient - unitAngle) % (2 * Math.PI);
+        
+        if (orient < 0) {
+        
+            orient += (2 * Math.PI);
         }
     }
     
     public void turnL() {
         
-        orient = (orient + unitAngle) % 360;
+        orient = (orient + unitAngle) % (2 * Math.PI);
     }
     
     public void push() {
         
-        content.append("currentpoint stroke newpath moveto\n");
+        content.append("currentpoint stroke newpath M\n");
         savedStates.push(new State(coord, orient));
     }
     
@@ -73,18 +76,21 @@ public class TurtlePointer implements Turtle {
         
         State previous = savedStates.pop();
         
+        // State previous = savedStates.peek();
+        
         coord = previous.position;
         orient = previous.angle;
         
         content.append("stroke\n");
-        content.append(coord.getX() + " " + coord.getY() + " newpath M");
+        content.append(coord.getX() + " " + coord.getY() + " newpath M\n");
     }
     
     public void stay() {
         
         content.append("stroke\n");
         content.append("%%Trailer\n");
-        content.append("%%BoundingBox: lol " + "\n");
+        content.append("%%BoundingBox: ");
+        content.append((int)(boundBox.getX()) + " " + (int)(boundBox.getY()) + " " + (int)(boundBox.getWidth()) + " " + (int)(boundBox.getHeight()) + "\n");
         content.append("%%EOF\n");
         
         try {
@@ -99,11 +105,11 @@ public class TurtlePointer implements Turtle {
     
     public void init(Point2D pos, double angle_deg) {
         
+        content = new StringBuffer();
         content.append("%!PS-Adobe-3.0 EPSF-3.0\n");
         content.append("%%Title: L-system\n");
         content.append("%%Creator: lindenmayer.EPSTurtle\n");
         content.append("%%BoundingBox: (atend)\n");
-        content.append("%%EndComments\n");
         content.append("%%EndComments\n");
         content.append("/M {moveto} bind def\n");
         content.append("/L {lineto} bind def\n");
@@ -111,11 +117,12 @@ public class TurtlePointer implements Turtle {
         
         coord = pos;
         
-        content.append(coord.getX() + " " + coord.getY() + "newpath moveto\n");
+        content.append("newpath " + coord.getX() + " " + coord.getY() + " moveto\n");
         
-        orient = angle_deg;
+        orient = Math.toRadians(angle_deg);
         
         savedStates = new Stack<State>();
+        savedStates.push(new State(coord, orient));
     }
     
     public Point2D getPosition() {
@@ -130,8 +137,13 @@ public class TurtlePointer implements Turtle {
     
     public void setUnits(double step, double delta) {
         
-        unitStep = makeCoordinates(step, delta);
-        unitAngle = delta;
+        unitStep = step;
+        unitAngle = Math.toRadians(delta);
+    }
+    
+    public void setBoundBox(Rectangle2D box) {
+        
+        boundBox = box;
     }
     
     /**
@@ -156,31 +168,18 @@ public class TurtlePointer implements Turtle {
     }
     
     /**
-     * The method {@link #makeCoordinates} converts a given length with help of
-     * its orientation to its corresponding horizontal and vertical components.
-     * 
-     * @param length Double representing length module
-     * @param delta Double representing length orientation
-     * @return Point object holding the components of the given length
-     */
-    
-    private Point2D makeCoordinates(double length, double angle) {
-        
-        Point2D point = new Point((int)(length * Math.cos(angle)),
-        (int)(length * Math.sin(angle)));
-        
-        return point;
-    }
-    
-    /**
      * The method {@link #updateLocation} updates the turtle's location upon
      * the calling of a method which affected its position.
      */
     
     private void updateLocation() {
+        
+        Point2D distance = new Point2D.Double((unitStep * Math.cos(orient)),
+        (unitStep * Math.sin(orient)));
     
-        coord.setLocation(coord.getX() + unitStep.getX(),
-        coord.getY() + unitStep.getY());
+        coord = new Point2D.Double(
+        Math.round(10 * (coord.getX() + distance.getX())) / 10.0,
+        Math.round(10 * (coord.getY() + distance.getY())) / 10.0);
     }
     
     /**

@@ -1,8 +1,7 @@
 package lindenmayer;
 
-import java.awt.Rectangle;
-
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -128,18 +127,9 @@ public class LSystem extends AbstractLSystem {
             
             turtle.getClass().getDeclaredMethod(actions.get(sym))
             .invoke(turtle, new Object[0]);
-        } catch(IllegalAccessException e) {
+        } catch(Exception e) {
             
-            System.out.println("Illegal access");
-        } catch(NoSuchMethodException e) {
-            
-            System.out.println("No such method");
-        } catch(InvocationTargetException e) {
-            
-            System.out.println("Invocation target");
-        } catch(NullPointerException e) {
-            
-            System.out.println("Null pointer");
+            e.printStackTrace();
         }
     }
     
@@ -174,27 +164,37 @@ public class LSystem extends AbstractLSystem {
         
         if (n == 0) {
             
-            int defaultX = (int)(turtle.getPosition().getX());
-            int defaultY = (int)(turtle.getPosition().getY());
-            
-            Rectangle2D rec1 = new Rectangle(defaultX, defaultY, 0, 0);
+            double xmin = turtle.getPosition().getX();
+            double xmax = turtle.getPosition().getX();
+            double ymin = turtle.getPosition().getY();
+            double ymax = turtle.getPosition().getY();
             
             for (Symbol s : seq) {
                 
                 tell(turtle, s);
                 
-                int xmin = (int)(Math.min(defaultX, turtle.getPosition().getX()));
-                int xmax = (int)(Math.max(defaultX, turtle.getPosition().getX()));
+                if (xmin > turtle.getPosition().getX()) {
+                    
+                    xmin = turtle.getPosition().getX();
+                } else if (xmax < turtle.getPosition().getX()) {
+                    
+                    xmax = turtle.getPosition().getX();
+                }
                 
-                int ymin = (int)(Math.min(defaultY, turtle.getPosition().getY()));
-                int ymax = (int)(Math.max(defaultY, turtle.getPosition().getY()));
-                
-                Rectangle2D rec2 = new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin);
-                
-                Rectangle2D.union(rec1, rec2, rec1);
+                if (ymin > turtle.getPosition().getY()) {
+                    
+                    ymin = turtle.getPosition().getY();
+                } else if (ymax < turtle.getPosition().getY()) {
+                    
+                    ymax = turtle.getPosition().getY();
+                }
             }
             
-            return rec1;
+            System.out.println(xmin + ", " + xmax + ", " + ymin + ", " + ymax);
+            
+            Rectangle2D rec = new Rectangle2D.Double(xmin, ymin, xmax, ymax);
+            
+            return rec;
         } else {
             
             seq = applyRules(seq, 1);
@@ -253,6 +253,18 @@ public class LSystem extends AbstractLSystem {
             }
             
             return sequence;
+        }
+        
+        public String toString() {
+            
+            StringBuilder str = new StringBuilder();
+            
+            for (Symbol s : this) {
+                
+                str.append(s.toString());
+            }
+            
+            return str.toString();
         }
     }
 }

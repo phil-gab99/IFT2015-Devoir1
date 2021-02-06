@@ -1,5 +1,7 @@
 package lindenmayer;
 
+import java.awt.geom.Rectangle2D;
+
 import java.io.IOException;
 
 public class Main {
@@ -10,7 +12,7 @@ public class Main {
         LSystem system = new LSystem();
         JSONUtilsLSystem.readJSONFile(args[0], system, turtle);
         
-        system.tell(turtle, system.getAxiom(), 20);
+        ((TurtlePointer)turtle).setBoundBox(system.tell(turtle, system.getAxiom(), 5));
         turtle.stay();
     }
 }
