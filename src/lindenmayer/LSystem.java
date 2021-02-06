@@ -97,14 +97,14 @@ public class LSystem extends AbstractLSystem {
         axiom = Sequence.strToSeq(str);
     }
     
-    public void setAction(Symbol sym, String action) {
-
-        actions.put(sym, action);
-    }
-    
     public Symbol.Seq getAxiom() {
         
         return axiom;
+    }
+    
+    public void setAction(Symbol sym, String action) {
+
+        actions.put(sym, action);
     }
     
     public Symbol.Seq rewrite(Symbol sym) {

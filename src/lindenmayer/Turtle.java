@@ -70,6 +70,15 @@ public interface Turtle {
     void init(Point2D pos, double angle_deg);
     
     /**
+     * The method {@link #end} indicates the end of the drawing process,
+     * preventing the turtle from performing an other actions. Implementing
+     * classes are expected to indicate a 
+     * 
+     */
+     
+    void end();
+    
+    /**
      * The getter method {@link getPosition} retrieves the turtle's coordinates
      * on the plane.
      *

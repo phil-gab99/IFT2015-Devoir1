@@ -13,6 +13,7 @@ import java.io.IOException;
         //as opposed to failing when following guidelines
     //The EPSTurtle.turnL and EPSTurtle.turnR which are coded in reverse manner
         //in the teacher provided outputs
+    //Find alternative way to end drawing instead of using EPSTurtle.stay()
     //Adding the bonus implementations (III.5a and III.5b)
     //Consider adding an EPSOptimizedTurtle class for shorter EPS files
 
@@ -25,6 +26,6 @@ public class Main {
         JSONUtilsLSystem.readJSONFile(args[0], system, turtle);
         
         ((EPSTurtle)turtle).setBoundBox(system.tell(turtle, system.getAxiom(), 5));
-        turtle.stay();
+        turtle.end();
     }
 }

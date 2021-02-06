@@ -24,7 +24,7 @@ public class EPSTurtle implements Turtle {
     //Fields responsible for creating and writing onto the PostScript file
     private BufferedWriter writer;
     private File output;
-    private StringBuffer content;
+    private StringBuilder content;
     
     private Rectangle2D boundBox; //Bounding Box necessary for page dimensions
     
@@ -86,28 +86,10 @@ public class EPSTurtle implements Turtle {
     
     public void stay() {
         
-        content.append("stroke\n");
-        content.append("%%Trailer\n");
-        content.append("%%BoundingBox: ");
-        content.append((int)(boundBox.getX()) + " ");
-        content.append((int)(boundBox.getY()) + " ");
-        content.append((int)(boundBox.getWidth()) + " ");
-        content.append((int)(boundBox.getHeight()) + "\n");
-        content.append("%%EOF");
-        
-        try {
-            
-            writer.write(content.toString());
-            writer.close();
-        } catch(IOException e) {
-            
-            e.printStackTrace();
-        }
+        // Does nothing
     }
     
     public void init(Point2D pos, double angle_deg) {
-        
-        content = new StringBuffer();
         
         content.append("%!PS-Adobe-3.0 EPSF-3.0\n");
         content.append("%%Title: L-system\n");
@@ -128,6 +110,27 @@ public class EPSTurtle implements Turtle {
         savedStates.push(new State(coord, orient));
     }
     
+    public void end() {
+        
+        content.append("stroke\n");
+        content.append("%%Trailer\n");
+        content.append("%%BoundingBox: ");
+        content.append((int)(boundBox.getX()) + " ");
+        content.append((int)(boundBox.getY()) + " ");
+        content.append((int)(boundBox.getWidth()) + " ");
+        content.append((int)(boundBox.getHeight()) + "\n");
+        content.append("%%EOF");
+        
+        try {
+            
+            writer.write(content.toString());
+            writer.close();
+        } catch(IOException e) {
+            
+            e.printStackTrace();
+        }
+    }
+    
     public Point2D getPosition() {
         
         return coord;
@@ -143,6 +146,13 @@ public class EPSTurtle implements Turtle {
         unitStep = step;
         unitAngle = Math.toRadians(delta);
     }
+    
+    /**
+     * The setter method {@link #setBoundBox} sets the bounding box rectangle
+     * necessary for the dimensions of the final drawing
+     *
+     * @param box Bounding box with proper position and dimensions
+     */
     
     public void setBoundBox(Rectangle2D box) {
         
@@ -162,7 +172,7 @@ public class EPSTurtle implements Turtle {
             
             output = new File(path + ".eps");
             output.createNewFile();
-            
+            content = new StringBuilder();
             writer = new BufferedWriter(new FileWriter(output));
         } catch(IOException e) {
             

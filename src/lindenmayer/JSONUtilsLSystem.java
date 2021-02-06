@@ -46,8 +46,7 @@ public class JSONUtilsLSystem {
         system.setAxiom(axiom);
         createActions(actions, system);
         
-        ((EPSTurtle)turtle).createOutput(
-        file.substring(0, file.indexOf(".")));
+        ((EPSTurtle)turtle).createOutput(filePath(file));
         
         turtle.init(
         new Point(start.getInt(0), start.getInt(1)), start.getDouble(2));
@@ -114,5 +113,18 @@ public class JSONUtilsLSystem {
             
             system.setAction(sym, actions.getString(key));
         }
+    }
+    
+    /**
+     * The method {@link #filePath} extract the file path from a given filename
+     * excluding its extension.
+     *
+     * @param name Full file name including its file extension
+     * @return File path excluding the extension
+     */
+    
+    private static String filePath(String name) {
+        
+        return name.substring(0, name.lastIndexOf("."));
     }
 }
