@@ -46,7 +46,7 @@ public class JSONUtilsLSystem {
         system.setAxiom(axiom);
         createActions(actions, system);
         
-        ((TurtlePointer)turtle).createOutput(
+        ((EPSTurtle)turtle).createOutput(
         file.substring(0, file.indexOf(".")));
         
         turtle.init(
