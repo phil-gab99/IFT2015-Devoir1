@@ -18,9 +18,6 @@ import java.awt.geom.Point2D;
 
 public interface Turtle {
     
-    Point2D DFLT_COORD = new Point(0,0);
-    double DFLT_ANGLE = 90;
-    
     /**
      * The method {@link draw} draws a line of unit length.
      */

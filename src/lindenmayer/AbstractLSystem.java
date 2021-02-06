@@ -23,6 +23,19 @@ public abstract class AbstractLSystem {
     public abstract Symbol addSymbol(char sym);
     
     /**
+     * The method {@link #addSymbol} registers a new character in the alphabet.
+     * Called while parsing the input specifying the alphabet for the L-system.
+     * The given String is first analyzed to check if it consists of a single
+     * character.
+     * 
+     * @param str String to be added to the alphabet
+     * @return Corresponding {@link Symbol} in the alphabet or null if invalid
+     * string
+     */
+
+    public abstract Symbol addSymbol(String str);
+    
+    /**
      * The method {@link #getSymbol} retrieves, via the given character, its
      * corresponding symbol from the {@link LSystem}'s alphabet.
      *
@@ -74,7 +87,7 @@ public abstract class AbstractLSystem {
     
     /**
      * The setter method {@link #setAxiom} defines the starting sequence for
-     * the L-System. Called when parsing the input. Symbols are encoded by
+     * the L-System. Called while parsing the input. Symbols are encoded by
      * <code>char</code>s as in {@link #addSymbol(char)}.
      * 
      * @param str Starting sequence
@@ -137,7 +150,8 @@ public abstract class AbstractLSystem {
      * @param turtle {@link Turtle} used for drawing
      * @param seq {@link Symbol.Seq} starting sequence
      * @param n Integer indicating number of rounds
-     * @return bounding box (minimal rectangle covering all visited turtle positions)
+     * @return bounding box (minimal rectangle covering all visited turtle
+     * positions)
      */
 
     public abstract Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n);

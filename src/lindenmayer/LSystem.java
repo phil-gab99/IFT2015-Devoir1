@@ -27,7 +27,7 @@ public class LSystem extends AbstractLSystem {
     private Map<Symbol, List<Symbol.Seq>> rules; // Symbol-Sequence pair rules
     private Symbol.Seq axiom; // Starting sequence of current LSystem
     private Map<Symbol, String> actions; // Symbol-Action pairing
-    private Map<Character, Symbol> charSymPairs;
+    private Map<Character, Symbol> charSymPairs; //Char-Symbol Pairing
     
     /**
      * The constructor method {@link #LSystem} initializes the fields
@@ -49,6 +49,16 @@ public class LSystem extends AbstractLSystem {
         charSymPairs.put(sym, alphabet.get(alphabet.size() - 1));
         
         return alphabet.get(alphabet.size() - 1);
+    }
+    
+    public Symbol addSymbol(String str) {
+        
+        if (str.length() > 1) {
+            
+            return null;
+        }
+        
+        return addSymbol(str.charAt(0));
     }
     
     public Symbol getSymbol(char c) {
@@ -153,22 +163,20 @@ public class LSystem extends AbstractLSystem {
         
         if (n == 0) {
             
-            Rectangle2D rec1 = new Rectangle((int)(Turtle.DFLT_COORD.getX()),
-            (int)(Turtle.DFLT_COORD.getY()), 0, 0);
+            int defaultX = (int)(turtle.getPosition().getX());
+            int defaultY = (int)(turtle.getPosition().getY());
+            
+            Rectangle2D rec1 = new Rectangle(defaultX, defaultY, 0, 0);
             
             for (Symbol s : seq) {
                 
                 tell(turtle, s);
                 
-                int xmin = (int)Math.min(Turtle.DFLT_COORD.getX(),
-                turtle.getPosition().getX());
-                int xmax = (int)Math.max(Turtle.DFLT_COORD.getX(),
-                turtle.getPosition().getX());
+                int xmin = (int)(Math.min(defaultX, turtle.getPosition().getX()));
+                int xmax = (int)(Math.max(defaultX, turtle.getPosition().getX()));
                 
-                int ymin = (int)Math.min(Turtle.DFLT_COORD.getY(),
-                turtle.getPosition().getY());
-                int ymax = (int)Math.max(Turtle.DFLT_COORD.getY(),
-                turtle.getPosition().getY());
+                int ymin = (int)(Math.min(defaultY, turtle.getPosition().getY()));
+                int ymax = (int)(Math.max(defaultY, turtle.getPosition().getY()));
                 
                 Rectangle2D rec2 = new Rectangle(xmin, ymin, xmax - xmin, ymax - ymin);
                 

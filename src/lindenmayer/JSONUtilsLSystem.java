@@ -1,5 +1,7 @@
 package lindenmayer;
 
+import java.awt.Point;
+
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -15,7 +17,7 @@ import org.json.JSONTokener;
  * @version 1.0 2021-mm-dd
  */
 
-public class JSONToolsLSystem {
+public class JSONUtilsLSystem {
 
     /**
      * The method {@link #readJSONFile} parses through a given JSON file and
@@ -37,13 +39,17 @@ public class JSONToolsLSystem {
         String axiom = in.getString("axiom");
         JSONObject actions = in.getJSONObject("actions");
         JSONObject parameters = in.getJSONObject("parameters");
+        JSONArray start = parameters.getJSONArray("start");
         
         createAlphabet(alphabet, system);
         createRules(rules, system);
         system.setAxiom(axiom);
         createActions(actions, system);
         
-        turtle.init();
+        turtle.init(
+        new Point(start.getInt(0), start.getInt(1)), start.getDouble(2));
+        turtle.setUnits(
+        parameters.getDouble("step"), parameters.getDouble("angle"));
     }
 
     /**
@@ -58,7 +64,7 @@ public class JSONToolsLSystem {
         
         for (int i = 0; i < alphabet.length(); i++) {
             
-            system.addSymbol((char)(alphabet.getInt(i)));
+            system.addSymbol(alphabet.getString(i));
         }
     }
 
@@ -78,7 +84,12 @@ public class JSONToolsLSystem {
             
             if (sym != null) {
                 
-                system.addRule(sym, (rules.getString(key)));
+                JSONArray expansions = (JSONArray)(rules.get(key));
+                
+                for (int i = 0; i < expansions.length(); i++) {
+                    
+                    system.addRule(sym, expansions.getString(i));
+                }
             }
         }
     }
@@ -97,7 +108,7 @@ public class JSONToolsLSystem {
             
             Symbol sym = system.getSymbol(key);
             
-            system.setAction(sym, (actions.getString(key)));
+            system.setAction(sym, actions.getString(key));
         }
     }
 }

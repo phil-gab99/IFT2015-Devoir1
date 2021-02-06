@@ -70,6 +70,8 @@ public class TurtlePointer implements Turtle {
     
     public void init(Point2D pos, double angle_deg) {
         
+        System.out.println("%!PS-Adobe-3.0 EPSF-3.0");
+        
         coord = pos;
         orient = angle_deg;
         
