@@ -97,12 +97,9 @@ public class EPSTurtle implements Turtle {
         content.append("0.5 setlinewidth\n");
         
         coord = pos;
-        
-        content.append("newpath ");
-        content.append(coord.getX() + " " + coord.getY());
-        content.append(" moveto\n");
-        
         orient = Math.toRadians(angle_deg);
+        
+        content.append("newpath " + coord.getX() + " " + coord.getY() + " M\n");
         
         savedStates = new Stack<State>();
     }
