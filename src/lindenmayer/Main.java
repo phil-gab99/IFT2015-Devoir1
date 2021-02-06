@@ -10,6 +10,7 @@ public class Main {
         LSystem system = new LSystem();
         JSONUtilsLSystem.readJSONFile(args[0], system, turtle);
         
-        system.tell(turtle, new Symbol('F'));
+        system.tell(turtle, system.getAxiom(), 20);
+        turtle.stay();
     }
 }

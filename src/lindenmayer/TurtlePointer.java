@@ -35,15 +35,16 @@ public class TurtlePointer implements Turtle {
     
     public void draw() {
         
-        //TODO: Draws
-        System.out.println("draw");
         updateLocation();
+        
+        content.append(coord.getX() + " " + coord.getY() + " L");
     }
     
     public void move() {
         
-        //TODO: Moves
         updateLocation();
+        
+        content.append(coord.getX() + " " + coord.getY() + " M");
     }
     
     public void turnR() {
@@ -64,6 +65,7 @@ public class TurtlePointer implements Turtle {
     
     public void push() {
         
+        content.append("currentpoint stroke newpath moveto\n");
         savedStates.push(new State(coord, orient));
     }
     
@@ -73,12 +75,26 @@ public class TurtlePointer implements Turtle {
         
         coord = previous.position;
         orient = previous.angle;
+        
+        content.append("stroke\n");
+        content.append(coord.getX() + " " + coord.getY() + " newpath M");
     }
     
     public void stay() {
         
-        // content.append();
-        //TODO: Stays
+        content.append("stroke\n");
+        content.append("%%Trailer\n");
+        content.append("%%BoundingBox: lol " + "\n");
+        content.append("%%EOF\n");
+        
+        try {
+            
+            writer.write(content.toString());
+            writer.close();
+        } catch(IOException e) {
+            
+            e.printStackTrace();
+        }
     }
     
     public void init(Point2D pos, double angle_deg) {
@@ -88,8 +104,15 @@ public class TurtlePointer implements Turtle {
         content.append("%%Creator: lindenmayer.EPSTurtle\n");
         content.append("%%BoundingBox: (atend)\n");
         content.append("%%EndComments\n");
+        content.append("%%EndComments\n");
+        content.append("/M {moveto} bind def\n");
+        content.append("/L {lineto} bind def\n");
+        content.append("0.5 setlinewidth\n");
         
         coord = pos;
+        
+        content.append(coord.getX() + " " + coord.getY() + "newpath moveto\n");
+        
         orient = angle_deg;
         
         savedStates = new Stack<State>();
