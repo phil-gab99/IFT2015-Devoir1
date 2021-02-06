@@ -11,6 +11,10 @@ import java.io.IOException;
         //implementations (should they be declared in interface or no?)
     //The EPSTurtle.pop() which doesn't follow requested guidelines but works
         //as opposed to failing when following guidelines
+    //The EPSTurtle.turnL and EPSTurtle.turnR which are coded in reverse manner
+        //in the teacher provided outputs
+    //Adding the bonus implementations (III.5a and III.5b)
+    //Consider adding an EPSOptimizedTurtle class for shorter EPS files
 
 public class Main {
     
