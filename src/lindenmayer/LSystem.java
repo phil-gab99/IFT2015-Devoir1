@@ -190,8 +190,6 @@ public class LSystem extends AbstractLSystem {
                 }
             }
             
-            System.out.println(xmin + ", " + xmax + ", " + ymin + ", " + ymax);
-            
             Rectangle2D rec = new Rectangle2D.Double(xmin, ymin, xmax, ymax);
             
             return rec;
@@ -253,18 +251,6 @@ public class LSystem extends AbstractLSystem {
             }
             
             return sequence;
-        }
-        
-        public String toString() {
-            
-            StringBuilder str = new StringBuilder();
-            
-            for (Symbol s : this) {
-                
-                str.append(s.toString());
-            }
-            
-            return str.toString();
         }
     }
 }

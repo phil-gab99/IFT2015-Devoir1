@@ -8,7 +8,7 @@
 		"F":"draw", 
 		"[":"push",
 		"]":"pop", 
-		"-":"turnL",
-		"+":"turnR"},
+		"+":"turnL",
+		"-":"turnR"},
 	"parameters" : {"step": 3, "angle":22.5, "start":[250,0,90]}
 }
