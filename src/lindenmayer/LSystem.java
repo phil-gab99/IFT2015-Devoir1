@@ -123,7 +123,7 @@ public class LSystem extends AbstractLSystem {
     
     public void tell(Turtle turtle, Symbol sym) {
         
-        try {
+        try { //Invoking method paired with given symbol
             
             turtle.getClass().getDeclaredMethod(actions.get(sym))
             .invoke(turtle, new Object[0]);
@@ -238,6 +238,7 @@ public class LSystem extends AbstractLSystem {
          * {@link Sequence} of {@link Symbol}'s.
          *
          * @param characters String to be converted
+         * @return The {@link Symbol.Seq} variant
          */
          
         private static Symbol.Seq strToSeq(String characters) {

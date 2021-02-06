@@ -1,8 +1,5 @@
 package lindenmayer;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
@@ -15,20 +12,22 @@ import java.io.IOException;
 import java.util.Stack;
 
 /**
- * The class {@link TurtlePointer} manages the turtle actions and keeps track
- * of its states.
+ * The class {@link EPSTurtle} is responsible for creating the PostScript file
+ * resulting from applying each {@link Symbol}'s paired action.
  * 
  * @author Philippe Gabriel
  * @version 1.0 2021-mm-dd
  */
 
-public class TurtlePointer implements Turtle {
+public class EPSTurtle implements Turtle {
     
+    //Fields responsible for creating and writing onto the PostScript file
     private BufferedWriter writer;
     private File output;
     private StringBuffer content;
     
-    private Rectangle2D boundBox;
+    private Rectangle2D boundBox; //Bounding Box necessary for page dimensions
+    
     private Point2D coord;    //Point2D indicating turtle's position
     private double orient;    //Double indicating turtle's current orientation
     
@@ -90,8 +89,11 @@ public class TurtlePointer implements Turtle {
         content.append("stroke\n");
         content.append("%%Trailer\n");
         content.append("%%BoundingBox: ");
-        content.append((int)(boundBox.getX()) + " " + (int)(boundBox.getY()) + " " + (int)(boundBox.getWidth()) + " " + (int)(boundBox.getHeight()) + "\n");
-        content.append("%%EOF\n");
+        content.append((int)(boundBox.getX()) + " ");
+        content.append((int)(boundBox.getY()) + " ");
+        content.append((int)(boundBox.getWidth()) + " ");
+        content.append((int)(boundBox.getHeight()) + "\n");
+        content.append("%%EOF");
         
         try {
             
@@ -106,6 +108,7 @@ public class TurtlePointer implements Turtle {
     public void init(Point2D pos, double angle_deg) {
         
         content = new StringBuffer();
+        
         content.append("%!PS-Adobe-3.0 EPSF-3.0\n");
         content.append("%%Title: L-system\n");
         content.append("%%Creator: lindenmayer.EPSTurtle\n");
