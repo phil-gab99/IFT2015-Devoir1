@@ -21,15 +21,13 @@ import java.util.Stack;
 
 public class EPSTurtle implements Turtle {
     
-    //Fields responsible for creating and writing onto the PostScript file
-    private BufferedWriter writer;
-    private File output;
-    private StringBuilder content;
+    private BufferedWriter writer; //BufferedWriter for writing PostScript file
+    private StringBuilder content; //Contents of Postscript file to be written
     
     private Rectangle2D boundBox; //Bounding Box necessary for page dimensions
     
-    private Point2D coord;    //Point2D indicating turtle's position
-    private double orient;    //Double indicating turtle's current orientation
+    private Point2D coord; //Point2D indicating turtle's position
+    private double orient; //Double indicating turtle's current orientation
     
     private double unitStep;  //Double holding the set unit step length
     private double unitAngle; //Double indicating set unit angle length
@@ -39,14 +37,12 @@ public class EPSTurtle implements Turtle {
     public void draw() {
         
         updateLocation();
-        
         content.append(coord.getX() + " " + coord.getY() + " L\n");
     }
     
     public void move() {
         
         updateLocation();
-        
         content.append(coord.getX() + " " + coord.getY() + " M\n");
     }
     
@@ -102,12 +98,13 @@ public class EPSTurtle implements Turtle {
         
         coord = pos;
         
-        content.append("newpath " + coord.getX() + " " + coord.getY() + " moveto\n");
+        content.append("newpath ");
+        content.append(coord.getX() + " " + coord.getY());
+        content.append(" moveto\n");
         
         orient = Math.toRadians(angle_deg);
         
         savedStates = new Stack<State>();
-        savedStates.push(new State(coord, orient));
     }
     
     public void end() {
@@ -128,6 +125,7 @@ public class EPSTurtle implements Turtle {
         } catch(IOException e) {
             
             System.err.println("Error accessing file: " + e.getMessage());
+            e.printStackTrace();
             System.exit(0);
         }
     }
