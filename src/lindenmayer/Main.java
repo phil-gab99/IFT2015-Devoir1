@@ -1,8 +1,9 @@
 package lindenmayer;
 
-import java.awt.geom.Rectangle2D;
-
-import java.io.IOException;
+// import java.io.FileNotFoundException;
+// import java.io.IOException;
+// 
+// import org.json.JSONException;
 
 // Minor current issues to look into
     //The LSystem.tell(Turtle, Seq, int) questionnable recursion implementation
@@ -15,11 +16,19 @@ import java.io.IOException;
 
 public class Main {
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         
         Turtle turtle = new EPSTurtle();
         LSystem system = new LSystem();
-        JSONUtilsLSystem.readJSONFile(args[0], system, turtle);
+        
+        try {
+            
+            JSONUtilsLSystem.readJSONFile(args[0], system, turtle);
+        } catch(Exception e) {
+            
+            System.err.println(e.getMessage());
+            return;
+        }
         
         ((EPSTurtle)turtle).setBoundBox(system.tell(turtle, system.getAxiom(), 5));
         turtle.end();

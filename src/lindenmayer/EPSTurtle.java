@@ -127,7 +127,8 @@ public class EPSTurtle implements Turtle {
             writer.close();
         } catch(IOException e) {
             
-            e.printStackTrace();
+            System.err.println("Error accessing file: " + e.getMessage());
+            System.exit(0);
         }
     }
     
@@ -166,17 +167,17 @@ public class EPSTurtle implements Turtle {
      * @param path String indicating path of file
      */
     
-    public void createOutput(String path) {
+    public void createOutput(String path) throws IOException {
+        
+        content = new StringBuilder();
         
         try {
             
-            output = new File(path + ".eps");
-            output.createNewFile();
-            content = new StringBuilder();
-            writer = new BufferedWriter(new FileWriter(output));
+            writer =
+            new BufferedWriter(new FileWriter(new File(path + ".eps")));
         } catch(IOException e) {
             
-            e.printStackTrace();
+            throw new IOException("Unable to access file " + e.getMessage());
         }
     }
     

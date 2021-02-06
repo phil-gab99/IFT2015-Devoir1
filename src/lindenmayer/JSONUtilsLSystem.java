@@ -2,10 +2,12 @@ package lindenmayer;
 
 import java.awt.Point;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -26,13 +28,23 @@ public class JSONUtilsLSystem {
      * @param file File path of JSON file
      * @param system {@link LSystem} to build
      * @param turtle {@link Turtle} associated with system
-     * @throws {@link java.io.IOException}
      */
 
     public static void readJSONFile(String file, LSystem system, Turtle turtle)
-    throws IOException {
+    throws JSONException, FileNotFoundException, IOException {
         
-        JSONObject in = new JSONObject(new JSONTokener(new FileReader(file)));
+        JSONObject in = null;
+        
+        try {
+            
+            in = new JSONObject(new JSONTokener(new FileReader(file)));
+        } catch(JSONException e) {
+            
+            throw new JSONException("Syntax error in file: " + e.getMessage());
+        } catch(FileNotFoundException e) {
+            
+            throw new FileNotFoundException("File not found: " + e.getMessage());
+        }
         
         JSONArray alphabet = in.getJSONArray("alphabet");
         JSONObject rules = in.getJSONObject("rules");

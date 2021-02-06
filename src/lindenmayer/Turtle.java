@@ -72,8 +72,8 @@ public interface Turtle {
     /**
      * The method {@link #end} indicates the end of the drawing process,
      * preventing the turtle from performing an other actions. Implementing
-     * classes are expected to indicate a 
-     * 
+     * classes are expected to indicate an ending sequence of events once
+     * actions are completed.
      */
      
     void end();
