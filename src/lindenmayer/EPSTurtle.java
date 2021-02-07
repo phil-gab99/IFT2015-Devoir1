@@ -162,8 +162,15 @@ public class EPSTurtle implements Turtle {
         
         try {
             
-            writer =
-            new BufferedWriter(new FileWriter(new File(path + ".eps")));
+            int i = 1;
+            File output = new File(path + ".eps");
+            
+            while (!output.createNewFile()) {
+                
+                output = new File(path + i++ + ".eps");
+            }
+            
+            writer = new BufferedWriter(new FileWriter(output));
         } catch(IOException e) {
             
             throw new IOException("Unable to access file " + e.getMessage());
