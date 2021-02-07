@@ -1,10 +1,5 @@
 package lindenmayer;
 
-// import java.io.FileNotFoundException;
-// import java.io.IOException;
-// 
-// import org.json.JSONException;
-
 // Minor current issues to look into
     //The LSystem.tell(Turtle, Seq, int) questionnable recursion implementation
     //The EPSTurtle.turnL and EPSTurtle.turnR which are coded in reverse manner
