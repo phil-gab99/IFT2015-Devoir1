@@ -13,7 +13,10 @@ import java.util.Stack;
 
 /**
  * The class {@link EPSTurtle} is responsible for creating the PostScript file
- * resulting from applying each {@link Symbol}'s paired action.
+ * resulting from applying each {@link Symbol}'s paired action. The PostScript
+ * operators used to accomplish this task are mainly <code>lineto</code> and
+ * <code>moveto</code>. This class handles its angles in radians to facilitate
+ * the calculation of each position's components.
  * 
  * @author Philippe Gabriel
  * @version 1.0 2021-mm-dd
@@ -70,8 +73,6 @@ public class EPSTurtle implements Turtle {
     public void pop() {
         
         State previous = savedStates.pop();
-        
-        // State previous = savedStates.peek();
         
         coord = previous.position;
         orient = previous.angle;
@@ -154,13 +155,6 @@ public class EPSTurtle implements Turtle {
         
         boundBox = box;
     }
-    
-    /**
-     * The method {@link createOutput} creates the PostScript file used to
-     * write the various the turtle actions to be undertaken.
-     *
-     * @param path String indicating path of file
-     */
     
     public void createOutput(String path) throws IOException {
         

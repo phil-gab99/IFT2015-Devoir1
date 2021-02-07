@@ -2,6 +2,8 @@ package lindenmayer;
 
 import java.awt.geom.Point2D;
 
+import java.io.IOException;
+
 /**
  * The interface {@link Turtle} contains the basic graphical needs for turtle
  * graphics. A turtle state is defined as a triplet containing its position
@@ -84,7 +86,7 @@ public interface Turtle {
      *
      * @return The turtle's coordinates
      */
-     
+    
     Point2D getPosition();
     
     /**
@@ -93,7 +95,7 @@ public interface Turtle {
      *
      * @return The turtle's orientation.
      */
-     
+    
     double getAngle();
     
     /**
@@ -103,6 +105,15 @@ public interface Turtle {
      * @param step Double indicating length of an advance
      * @param delta Double indicating unit angle change in degrees
      */
-     
+    
     void setUnits(double step, double delta);
+    
+    /**
+     * The method {@link createOutput} creates the PostScript file used to
+     * write the various the turtle actions to be undertaken.
+     *
+     * @param path String indicating path of file
+     */
+    
+    void createOutput(String path) throws IOException;
 }

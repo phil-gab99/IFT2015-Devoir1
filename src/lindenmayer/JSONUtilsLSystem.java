@@ -58,7 +58,7 @@ public class JSONUtilsLSystem {
         system.setAxiom(axiom);
         createActions(actions, system);
         
-        ((EPSTurtle)turtle).createOutput(filePath(file));
+        turtle.createOutput(filePath(file));
         
         turtle.init(
         new Point(start.getInt(0), start.getInt(1)), start.getDouble(2));
