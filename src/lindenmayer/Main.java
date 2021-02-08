@@ -5,6 +5,7 @@ package lindenmayer;
     //The EPSTurtle.turnL and EPSTurtle.turnR which are coded in reverse manner
         //in the teacher provided outputs
     //Adding the bonus implementations (III.5a and III.5b)
+    //Short hand in EPSTurtleOptimized
 
 public class Main {
     
