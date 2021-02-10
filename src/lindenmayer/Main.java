@@ -6,6 +6,7 @@ package lindenmayer;
         //in the teacher provided outputs
     //Adding the bonus implementations (III.5a and III.5b)
     //Short hand in EPSTurtleOptimized
+    //Make sure you use the same symbol, check back in JSONUtilsLSystem
 
 public class Main {
     
