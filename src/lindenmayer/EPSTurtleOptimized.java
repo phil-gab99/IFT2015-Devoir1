@@ -43,21 +43,13 @@ public class EPSTurtleOptimized implements Turtle {
     public void draw() {
         
         updateLocation();
-        
-        content.append(unitStep + " 1 scale\n");
-        content.append("1.0 0.0 L\n");
-        content.append("1.0 0.0 translate\n");
-        content.append("1 " + unitStep + " div 1 scale\n");
+        content.append("unit-draw\n");
     }
     
     public void move() {
         
         updateLocation();
-        
-        content.append(unitStep + " 1 scale\n");
-        content.append("1.0 0.0 M\n");
-        content.append("1.0 0.0 translate\n");
-        content.append("1 " + unitStep + " div 1 scale\n");
+        content.append("unit-move\n");
     }
     
     public void turnR() {
@@ -69,18 +61,18 @@ public class EPSTurtleOptimized implements Turtle {
             orient += 360;
         }
         
-        content.append(-unitAngle + " rotate\n");
+        content.append("turn-right\n");
     }
     
     public void turnL() {
         
         orient = (orient + unitAngle) % 360;
-        content.append(unitAngle + " rotate\n");
+        content.append("turn-left\n");
     }
     
     public void push() {
         
-        content.append("0.0 0.0 stroke newpath M\n");
+        content.append("0.0 0.0 stroke newpath moveto\n");
         savedStates.push(new State(coord, orient));
     }
     
@@ -95,7 +87,7 @@ public class EPSTurtleOptimized implements Turtle {
         content.append(-orient + " rotate\n");
         content.append(distX + " " + distY + " translate\n");
         content.append(prev.angle + " rotate\n");
-        content.append("0.0 0.0 newpath M\n");
+        content.append("0.0 0.0 newpath moveto\n");
         
         coord = prev.position;
         orient = prev.angle;
@@ -113,16 +105,9 @@ public class EPSTurtleOptimized implements Turtle {
         content.append("%%Creator: lindenmayer.EPSTurtleOptimized\n");
         content.append("%%BoundingBox: (atend)\n");
         content.append("%%EndComments\n");
-        content.append("/M {moveto} bind def\n");
-        content.append("/L {lineto} bind def\n");
-        content.append("0.5 setlinewidth\n");
         
         coord = pos;
         orient = angle_deg;
-        
-        content.append(coord.getX() + " " + coord.getY() + " translate\n");
-        content.append("newpath 0.0 0.0 M\n");
-        content.append(angle_deg + " rotate\n");
         
         savedStates = new Stack<State>();
     }
@@ -160,6 +145,30 @@ public class EPSTurtleOptimized implements Turtle {
     }
     
     public void setUnits(double step, double delta) {
+        
+        content.append("/unit-draw {\n");
+        content.append("    " + step + " 1 scale\n");
+        content.append("    1.0 0.0 lineto\n");
+        content.append("    1.0 0.0 translate\n");
+        content.append("    1 " + step + " div 1 scale\n");
+        content.append("} def\n");
+        
+        content.append("/unit-move {\n");
+        content.append("    " + step + " 1 scale\n");
+        content.append("    1.0 0.0 moveto\n");
+        content.append("    1.0 0.0 translate\n");
+        content.append("    1 " + step + " div 1 scale\n");
+        content.append("} def\n");
+        
+        content.append("/turn-right {" + -delta + " rotate} def\n");
+        content.append("/turn-left {" + delta + " rotate} def\n");
+        
+        content.append("0.5 setlinewidth\n");
+        
+        content.append(coord.getX() + " " + coord.getY() + " translate\n");
+        content.append(orient + " rotate\n");
+        
+        content.append("newpath 0.0 0.0 moveto\n");
         
         unitStep = step;
         unitAngle = delta;
@@ -216,7 +225,8 @@ public class EPSTurtleOptimized implements Turtle {
         (unitStep * Math.cos(Math.toRadians(orient))),
         (unitStep * Math.sin(Math.toRadians(orient))));
     
-        coord = new Point2D.Double(coord.getX() + distance.getX(), coord.getY() + distance.getY());
+        coord = new Point2D.Double(coord.getX() + distance.getX(),
+        coord.getY() + distance.getY());
     }
     
     /**
