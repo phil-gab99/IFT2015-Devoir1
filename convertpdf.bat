@@ -1,0 +1,1 @@
+FOR /F "tokens=1 delims=." %%a IN ('dir res /b ^| find ".eps"') DO epstopdf res/%%a.eps --output res/%%a.pdf

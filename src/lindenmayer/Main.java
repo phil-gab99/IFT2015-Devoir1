@@ -10,34 +10,36 @@ public class Main {
     
     public static void main(String[] args) {
         
-        Turtle turtle = new EPSTurtle();
-        LSystem system = new LSystem();
+        generateEPSOutput(new EPSTurtle(), new LSystem(), args[0], 5);
+        generateEPSOutput(new EPSTurtle(), new LSystem(), args[1], 7);
+        generateEPSOutput(new EPSTurtle(), new LSystem(), args[2], 6);
+        generateEPSOutput(new EPSTurtle(), new LSystem(), args[3], 8);
+        
+        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[0], 5);
+        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[1], 7);
+        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[2], 6);
+        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[3], 8);
+    }
+    
+    public static void generateEPSOutput(Turtle t, LSystem l, String path, int n) {
         
         try {
         
-            JSONUtilsLSystem.readJSONFile(args[0], system, turtle);
+            JSONUtilsLSystem.readJSONFile(path, l, t);
         } catch(Exception e) {
         
             System.err.println(e.getMessage());
             return;
         }
         
-        ((EPSTurtle)turtle).setBoundBox(system.tell(turtle, system.getAxiom(), 5));
-        turtle.end();
-        
-        Turtle turtle2 = new EPSTurtleOptimized();
-        LSystem system2 = new LSystem();
-        
-        try {
-        
-            JSONUtilsLSystem.readJSONFile(args[0], system2, turtle2);
-        } catch(Exception e) {
-        
-            System.err.println(e.getMessage());
-            return;
+        if (t instanceof EPSTurtle) {
+            
+            ((EPSTurtle)t).setBoundBox(l.tell(t, l.getAxiom(), n));
+        } else if (t instanceof EPSTurtleOptimized) {
+            
+            ((EPSTurtleOptimized)t).setBoundBox(l.tell(t, l.getAxiom(), n));
         }
         
-        ((EPSTurtleOptimized)turtle2).setBoundBox(system2.tell(turtle2, system2.getAxiom(), 5));
-        turtle2.end();
+        t.end();
     }
 }
