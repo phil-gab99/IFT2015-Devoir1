@@ -1,31 +1,40 @@
 package lindenmayer;
 
-// Minor current issues to look into
-    //The LSystem.tell(Turtle, Seq, int) questionnable recursion implementation
-    //The EPSTurtle.turnL and EPSTurtle.turnR which are coded in reverse manner
-        //in the teacher provided outputs
-    //Adding the bonus implementations (III.5a and III.5b)
+/**
+ * The class Main handles user-passed arguments to generate the PostScript
+ * files via the different implementations to generate it.
+ * 
+ * @author Philippe Gabriel
+ * @version 1.0.5 2021-02-21
+ */
 
 public class Main {
     
     public static void main(String[] args) {
         
-        generateEPSOutput(new EPSTurtle(), new LSystem(), args[0], 5);
-        generateEPSOutput(new EPSTurtle(), new LSystem(), args[1], 7);
-        generateEPSOutput(new EPSTurtle(), new LSystem(), args[2], 6);
-        generateEPSOutput(new EPSTurtle(), new LSystem(), args[3], 8);
-        
-        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[0], 5);
-        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[1], 7);
-        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[2], 6);
-        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[3], 8);
+        generateEPSOutput(new EPSTurtle(), new LSystem(), args[0], Integer.parseInt(args[1]));
+        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[0], Integer.parseInt(args[1]));
     }
     
-    public static void generateEPSOutput(Turtle t, LSystem l, String path, int n) {
+    /**
+     * The method {@link #generateEPSOutput} builds the {@link LSystem} and
+     * configures the {@link Turtle} according the specified given filepath
+     * and number of iterations passed.
+     *
+     * @param t {@link Turtle} which will take care of writing the PostScript
+     * file
+     * @param l {@link LSystem} holding the json file specifications for the
+     * drawing
+     * @param f File path to the json file to parse
+     * @param n Integer indicating number of iterations for applying rules onto
+     * a starting sequence specified in the json file
+     */
+    
+    public static void generateEPSOutput(Turtle t, LSystem l, String f, int n) {
         
         try {
         
-            JSONUtilsLSystem.readJSONFile(path, l, t);
+            JSONUtilsLSystem.readJSONFile(f, l, t);
         } catch(Exception e) {
         
             System.err.println(e.getMessage());

@@ -17,7 +17,7 @@ import java.util.Random;
  * instances of {@link Symbol}, and to sequences as {@link Symbol.Seq}.
  * 
  * @author Philippe Gabriel
- * @version 1.0 2021-mm-dd
+ * @version 1.10.4 2021-02-21
  */
 
 public class LSystem extends AbstractLSystem {

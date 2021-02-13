@@ -6,7 +6,7 @@ import java.util.Objects;
  * The class {@link Symbol} defines a symbol within an L-system's alphabet.
  * 
  * @author Philippe Gabriel
- * @version 1.0 2021-mm-dd
+ * @version 1.2.1 2021-02-21
  */
 
 public class Symbol {

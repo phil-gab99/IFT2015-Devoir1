@@ -22,7 +22,7 @@ import java.util.Stack;
  * <code>rotate</code>.
  * 
  * @author Philippe Gabriel
- * @version 1.0 2021-mm-dd
+ * @version 1.14.2 2021-02-21
  */
 
 public class EPSTurtleOptimized implements Turtle {

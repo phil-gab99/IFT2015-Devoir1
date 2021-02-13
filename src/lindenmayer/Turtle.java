@@ -13,7 +13,7 @@ import java.io.IOException;
  * angle which are set in {@link #setUnits(double, double)}.
  *
  * @author Philippe Gabriel
- * @version 1.0 2021-mm-dd
+ * @version 1.0.2 2021-02-21
  */
 
 public interface Turtle {

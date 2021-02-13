@@ -19,7 +19,7 @@ import java.util.Stack;
  * the calculation of each position's components.
  * 
  * @author Philippe Gabriel
- * @version 1.0 2021-mm-dd
+ * @version 1.13.4 2021-02-21
  */
 
 public class EPSTurtle implements Turtle {

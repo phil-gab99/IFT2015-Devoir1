@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
  * L-System.
  *
  * @author Philippe Gabriel
- * @version 1.0 2021-mm-dd
+ * @version 1.0.3 2021-mm-dd
  */
 
 public abstract class AbstractLSystem {

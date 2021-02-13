@@ -16,7 +16,7 @@ import org.json.JSONTokener;
  * file in order to define an L-System.
  * 
  * @author Philippe Gabriel
- * @version 1.0 2021-mm-dd
+ * @version 1.3 2021-02-21
  */
 
 public class JSONUtilsLSystem {
