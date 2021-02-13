@@ -12,8 +12,17 @@ public class Main {
     
     public static void main(String[] args) {
         
-        generateEPSOutput(new EPSTurtle(), new LSystem(), args[0], Integer.parseInt(args[1]));
-        generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[0], Integer.parseInt(args[1]));
+        try {
+            
+            generateEPSOutput(new EPSTurtle(), new LSystem(), args[0],
+            Integer.parseInt(args[1]));
+            
+            generateEPSOutput(new EPSTurtleOptimized(), new LSystem(), args[0],
+            Integer.parseInt(args[1]));
+        } catch(ArrayIndexOutOfBoundsException e) {
+            
+            System.err.println("Insufficient arguments: " + e.getMessage());
+        }
     }
     
     /**
