@@ -1,8 +1,8 @@
 {
 	"alphabet" : ["R", "L", "+", "-"],
 	"rules" : {
-		"L" : ["R+L+R"],
-		"R" : ["L-R-L"]
+		"L" : ["R-L-R"],
+		"R" : ["L+R+L"]
 	},
 	"axiom" : "L",
 	"actions" : {

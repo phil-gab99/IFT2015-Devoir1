@@ -1,0 +1,2 @@
+Main-Class: lindenmayer.Main
+Class-Path: lib/json-java.jar

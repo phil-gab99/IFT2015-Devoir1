@@ -1,9 +1,9 @@
 {
 	"alphabet" : ["F", "[", "]", "+", "-"],
     "rules" : {	"F" : [
-        "F[+F]F[-F]F",
-        "F[+F]F",
-        "F[+F]F[-F]F"]
+        "F[-F]F[+F]F",
+        "F[-F]F",
+        "F[-F]F[+F]F"]
     },
 	"axiom" : "F",
 	"actions" : {

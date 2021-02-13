@@ -1,7 +1,7 @@
 {
 	"alphabet" : ["F", "[", "]", "+", "-"],
 	"rules" : {
-        "F" : ["FF-[-F+F+F]+[+F-F-F]"]
+        "F" : ["FF+[+F-F-F]-[-F+F+F]"]
     },
 	"axiom" :"F",
 	"actions" : {
