@@ -22,14 +22,20 @@ to the sequence to draw.
 
 ## Running the application
 
-This application can be run from the command line/terminal using the command:
+This application uses a third-party library which can be found
+[here](https://github.com/stleary/JSON-java). It will be necessary to have a
+**lib** directory inside which there will be the *json-java.jar* file which
+this application depends upon. It can be run from the command line/terminal
+using the command:
 ```
 java -jar lindenmayer.jar file.json iterations
 ```
 where the first argument *file.json* is any *json* file path with the necessary
 information to construct an L-System, and the second argument specifies the
 number of iterations to take over the specified axiom in the *json* file which
-is the starting sequence before beginning to draw the end result.
+is the starting sequence before beginning to draw the end result. Two
+PostScript files will be produced from this action which consist of applying
+both turtle types over the specified *json* file.
 
 If running on a windows machine, one can run the following ghostscript command
 to convert an *.eps* file to a *.pdf*:
