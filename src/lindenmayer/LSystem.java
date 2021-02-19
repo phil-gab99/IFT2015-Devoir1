@@ -42,6 +42,8 @@ public class LSystem extends AbstractLSystem {
         charSymPairs = new HashMap<Character, Symbol>();
     }
     
+    
+    @Override
     public Symbol addSymbol(char sym) {
         
         alphabet.add(new Symbol(sym));
@@ -50,6 +52,7 @@ public class LSystem extends AbstractLSystem {
         return alphabet.get(alphabet.size() - 1);
     }
     
+    @Override
     public Symbol addSymbol(String str) {
         
         if (str.length() > 1) {
@@ -60,11 +63,13 @@ public class LSystem extends AbstractLSystem {
         return addSymbol(str.charAt(0));
     }
     
+    @Override
     public Symbol getSymbol(char c) {
         
         return charSymPairs.get(c);
     }
     
+    @Override
     public Symbol getSymbol(String str) {
         
         if (str.length() > 1) {
@@ -75,6 +80,7 @@ public class LSystem extends AbstractLSystem {
         return getSymbol(str.charAt(0));
     }
     
+    @Override
     public void addRule(Symbol sym, String expansion) {
 
         //Retrieving expansions list for given symbol and appropriate sequence
@@ -92,21 +98,25 @@ public class LSystem extends AbstractLSystem {
         }
     }
     
+    @Override
     public void setAxiom(String str) {
     
         axiom = Sequence.strToSeq(str);
     }
     
+    @Override
     public Symbol.Seq getAxiom() {
         
         return axiom;
     }
     
+    @Override
     public void setAction(Symbol sym, String action) {
 
         actions.put(sym, action);
     }
     
+    @Override
     public Symbol.Seq rewrite(Symbol sym) {
         
         List<Symbol.Seq> expansions = rules.get(sym);
@@ -119,6 +129,7 @@ public class LSystem extends AbstractLSystem {
         return expansions.get(new Random().nextInt(expansions.size()));
     }
     
+    @Override
     public void tell(Turtle turtle, Symbol sym) {
         
         try { //Invoking method paired with given symbol
@@ -131,6 +142,7 @@ public class LSystem extends AbstractLSystem {
         }
     }
     
+    @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
         
         Symbol.Seq interm; // Intermediate sequence after each iteration
@@ -158,6 +170,7 @@ public class LSystem extends AbstractLSystem {
         return seq;
     }
     
+    @Override
     public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int n) {
         
         if (n == 0) {
@@ -216,11 +229,13 @@ public class LSystem extends AbstractLSystem {
         
         private List<Symbol> elements = new ArrayList<Symbol>();;
         
+        @Override
         public void add(Symbol sym) {
             
             elements.add(sym);
         }
         
+        @Override
         public void append(Symbol.Seq sequence) {
             
             for (Symbol s : sequence) {

@@ -37,18 +37,21 @@ public class EPSTurtle implements Turtle {
     
     private Stack<State> savedStates; //Stack keeping track of turtle states
     
+    @Override
     public void draw() {
         
         updateLocation();
         content.append(coord.getX() + " " + coord.getY() + " L\n");
     }
     
+    @Override
     public void move() {
         
         updateLocation();
         content.append(coord.getX() + " " + coord.getY() + " M\n");
     }
     
+    @Override
     public void turnR() {
         
         orient = (orient - unitAngle) % (2 * Math.PI);
@@ -59,17 +62,20 @@ public class EPSTurtle implements Turtle {
         }
     }
     
+    @Override
     public void turnL() {
         
         orient = (orient + unitAngle) % (2 * Math.PI);
     }
     
+    @Override
     public void push() {
         
         content.append("currentpoint stroke newpath M\n");
         savedStates.push(new State(coord, orient));
     }
     
+    @Override
     public void pop() {
         
         State previous = savedStates.pop();
@@ -81,11 +87,13 @@ public class EPSTurtle implements Turtle {
         content.append(coord.getX() + " " + coord.getY() + " newpath M\n");
     }
     
+    @Override
     public void stay() {
         
         // Does nothing
     }
     
+    @Override
     public void init(Point2D pos, double angle_deg) {
         
         content.append("%!PS-Adobe-3.0 EPSF-3.0\n");
@@ -105,6 +113,7 @@ public class EPSTurtle implements Turtle {
         savedStates = new Stack<State>();
     }
     
+    @Override
     public void end() {
         
         content.append("stroke\n");
@@ -128,16 +137,19 @@ public class EPSTurtle implements Turtle {
         }
     }
     
+    @Override
     public Point2D getPosition() {
         
         return coord;
     }
     
+    @Override
     public double getAngle() {
         
         return orient;
     }
     
+    @Override
     public void setUnits(double step, double delta) {
         
         unitStep = step;
@@ -156,6 +168,7 @@ public class EPSTurtle implements Turtle {
         boundBox = box;
     }
     
+    @Override
     public void createOutput(String path) throws IOException {
         
         content = new StringBuilder();

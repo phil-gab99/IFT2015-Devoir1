@@ -40,18 +40,21 @@ public class EPSTurtleOptimized implements Turtle {
     
     private Stack<State> savedStates; //Stack keeping track of turtle states
     
+    @Override
     public void draw() {
         
         updateLocation();
         content.append("unit-draw\n");
     }
     
+    @Override
     public void move() {
         
         updateLocation();
         content.append("unit-move\n");
     }
     
+    @Override
     public void turnR() {
         
         orient = (orient - unitAngle) % 360;
@@ -64,18 +67,21 @@ public class EPSTurtleOptimized implements Turtle {
         content.append("turn-right\n");
     }
     
+    @Override
     public void turnL() {
         
         orient = (orient + unitAngle) % 360;
         content.append("turn-left\n");
     }
     
+    @Override
     public void push() {
         
         content.append("0.0 0.0 stroke newpath moveto\n");
         savedStates.push(new State(coord, orient));
     }
     
+    @Override
     public void pop() {
         
         State prev = savedStates.pop();
@@ -93,11 +99,13 @@ public class EPSTurtleOptimized implements Turtle {
         orient = prev.angle;
     }
     
+    @Override
     public void stay() {
         
         // Does nothing
     }
     
+    @Override
     public void init(Point2D pos, double angle_deg) {
         
         content.append("%!PS-Adobe-3.0 EPSF-3.0\n");
@@ -112,6 +120,7 @@ public class EPSTurtleOptimized implements Turtle {
         savedStates = new Stack<State>();
     }
     
+    @Override
     public void end() {
         
         content.append("stroke\n");
@@ -134,16 +143,19 @@ public class EPSTurtleOptimized implements Turtle {
         }
     }
     
+    @Override
     public Point2D getPosition() {
         
         return coord;
     }
     
+    @Override
     public double getAngle() {
         
         return orient;
     }
     
+    @Override
     public void setUnits(double step, double delta) {
         
         content.append("/unit-draw {\n");
@@ -186,13 +198,7 @@ public class EPSTurtleOptimized implements Turtle {
         boundBox = box;
     }
     
-    /**
-     * The method {@link createOutput} creates the PostScript file used to
-     * write the various the turtle actions to be undertaken.
-     *
-     * @param path String indicating path of file
-     */
-    
+    @Override
     public void createOutput(String path) throws IOException {
         
         content = new StringBuilder();
