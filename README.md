@@ -22,11 +22,7 @@ to the sequence to draw.
 
 ## Running the application
 
-This application uses a third-party library which can be found
-[here](https://github.com/stleary/JSON-java). It will be necessary to have a
-**lib** directory inside which there will be the *json-java.jar* file which
-this application depends upon. It can be run from the command line/terminal
-using the command:
+This application can be run from the command line/terminal using the command:
 ```
 java -jar lindenmayer.jar file.json iterations
 ```
@@ -37,14 +33,15 @@ is the starting sequence before beginning to draw the end result. Two
 PostScript files will be produced from this action which consist of applying
 both turtle types over the specified *json* file.
 
-If running on a windows machine, one can run the following ghostscript command
-to convert an *.eps* file to a *.pdf*:
+If running on a windows machine, one can run the following
+[ghostscript](https://www.ghostscript.com/) command to convert an *.eps* file
+to a *.pdf*:
 ```
 epstopdf file.eps --output file.pdf
 ```
 
-If running on a UNIX machine however, one can run the same ghostscript command
-with a minor variation:
+If running on a UNIX machine however, one can run the same command with a minor
+variation:
 ```
 epstopdf file.eps > file.pdf
 ```
