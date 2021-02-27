@@ -1,4 +1,4 @@
-package lindenmayer;
+package lindenmayer.standard;
 
 import java.awt.Point;
 

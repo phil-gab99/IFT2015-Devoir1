@@ -1,4 +1,4 @@
-package lindenmayer;
+package lindenmayer.standard;
 
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
@@ -41,7 +41,6 @@ public class LSystem extends AbstractLSystem {
         actions = new HashMap<Symbol, String>();
         charSymPairs = new HashMap<Character, Symbol>();
     }
-    
     
     @Override
     public Symbol addSymbol(char sym) {
@@ -205,7 +204,8 @@ public class LSystem extends AbstractLSystem {
                     yMax = rec1.getMinY();
                 }
                 
-                Rectangle2D rec2 = new Rectangle2D.Double(xMin, yMin, xMax - xMin, yMax - yMin);
+                Rectangle2D rec2 = new Rectangle2D.Double(xMin, yMin,
+                xMax - xMin, yMax - yMin);
                 
                 Rectangle2D.union(rec1, rec2, rec1);
             }
