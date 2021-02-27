@@ -113,7 +113,7 @@ public interface Turtle {
      * write the various the turtle actions to be undertaken.
      *
      * @param path String indicating path of file
-     * @throws IOException
+     * @throws IOException if unable to access output file
      */
     
     void createOutput(String path) throws IOException;

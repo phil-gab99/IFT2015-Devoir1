@@ -31,6 +31,9 @@ public class JSONUtilsLSystem {
      * @param file File path of JSON file
      * @param system {@link LSystem} to build
      * @param turtle {@link Turtle} associated with system
+     * @throws JSONException if an issue occurs while parsing the JSON file
+     * @throws FileNotFoundException if the JSON file path does not exist
+     * @throws IOException if unable to access output file
      */
 
     public static void readJSONFile(String file, LSystem system, Turtle turtle)
