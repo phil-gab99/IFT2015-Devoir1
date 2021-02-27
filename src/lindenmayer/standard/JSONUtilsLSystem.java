@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 /**
- * The class {@link JSONToolsLSystem} contains tools for parsing through a JSON
+ * The class {@link JSONUtilsLSystem} contains tools for parsing through a JSON
  * file in order to define an L-System.
  * 
  * @author Philippe Gabriel
