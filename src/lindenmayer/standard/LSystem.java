@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import lindenmayer.AbstractLSystem;
+import lindenmayer.Symbol;
+import lindenmayer.Turtle;
+
 /**
  * The class {@link #LSystem} builds its data structures by calling
  * {@link #addSymbol}, {@link #addRule}, {@link #addRule}, {@link #setAxiom}

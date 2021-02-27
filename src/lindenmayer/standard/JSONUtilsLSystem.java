@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import lindenmayer.Symbol;
+import lindenmayer.Turtle;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

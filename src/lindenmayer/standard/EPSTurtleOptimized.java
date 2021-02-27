@@ -11,6 +11,8 @@ import java.io.IOException;
 
 import java.util.Stack;
 
+import lindenmayer.Turtle;
+
 /**
  * The class {@link EPSTurtleOptimized} is responsible for creating the
  * PostScript file resulting from applying each {@link Symbol}'s paired action.

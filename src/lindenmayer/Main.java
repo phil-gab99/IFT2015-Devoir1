@@ -1,5 +1,7 @@
 package lindenmayer;
 
+import lindenmayer.standard.*;
+
 /**
  * The class Main handles user-passed arguments to generate the PostScript
  * files via the different implementations to generate it.
